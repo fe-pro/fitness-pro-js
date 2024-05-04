@@ -26,7 +26,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-direction: column;
 }
 
 .header__logo {
@@ -110,7 +109,26 @@ body {
     margin-top: 1rem;
 }
 
+/* Menu */
+
+.menu-button {
+    padding: 0;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    margin: 0.5rem;
+    transition: filter 200ms;
+}
+
+.menu-button:hover {
+    filter: brightness(0.8);
+}
+
 /* Helpers */
+
+.flex-column {
+    flex-direction: column;
+}
 
 .mt-2 {
     margin-top: 2rem;
