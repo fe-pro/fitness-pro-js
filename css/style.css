@@ -137,3 +137,26 @@ body {
 .mt-3 {
     margin-top: 3rem;
 }
+
+/* Workout list */
+
+.workout-list-container {
+    margin-top: 4.4rem;
+}
+
+.workout-item {
+    background: #1A1A1A;
+    height: 7rem;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: filter 200ms;
+}
+
+.workout-item:hover {
+    filter: brightness(1.2)
+}
