@@ -98,15 +98,24 @@ body {
     transition: filter ease 200ms;
 }
 
-.navigate-link:hover {
-    filter: brightness(0.8);
-}
-
 .error-message {
     font-size: 1.2rem;
     color: #fff;
     display: block;
     margin-top: 1rem;
+}
+
+.delete-link {
+    color: #D87373;
+    text-align: center;
+    display: block;
+    cursor: pointer;
+    transition: filter 200ms;
+}
+
+.navigate-link:hover,
+.delete-link:hover {
+    filter: brightness(0.8);
 }
 
 /* Menu */
