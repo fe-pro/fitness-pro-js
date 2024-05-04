@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/style.css">
+
+    <title>Adicionar exercício</title>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header class="header">
+
+            <button class="menu-button" type="button">
+                <img class="menu-button__icon" src="./assets/menu-icon.svg">
+            </button>
+
+            <h1 class="title">Adicionar exercício</h1>
+
+            <button class="menu-button" type="button">
+                <img class="menu-button__icon" src="./assets/back-button-icon.svg">
+            </button>
+
+        </header>
+
+        <main class="mt-3">
+            <form>
+                <label class="label" for="exercise-title">Nome do exercício</label>
+                <input class="input" type="text" name="exercise-title" placeholder="Nome do exercício">
+                <span class="error-message">Título é obrigatório</span>
+
+                <label class="label mt-2" for="sets">Séries</label>
+                <input class="input" type="number" name="sets" placeholder="Quantidade de séries">
+                <span class="error-message">Número de série é obrigatório</span>
+
+                <label class="label mt-2" for="reps">Repetições</label>
+                <input class="input" type="number" name="reps" placeholder="Quantidade de repetições">
+                <span class="error-message">Número de repetições é obrigatório</span>
+
+                <button class="button mt-3" type="submit">Criar exercício</button>
+            </form>
+        </main>
+
+    </div>
+
+</body>
+
+</html>
