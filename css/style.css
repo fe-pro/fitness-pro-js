@@ -169,3 +169,41 @@ body {
 .workout-item:hover {
     filter: brightness(1.2)
 }
+
+/* Workout view */
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 1rem;
+    color: #fff;
+}
+
+td {
+    height: 5rem;
+    background-color: #1A1A1A;
+    border-radius: 5px;
+}
+
+th {
+    text-align: left;
+    font-weight: 700;
+}
+
+td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+tbody tr td:first-child {
+    text-align: left;
+    padding-left: 2rem;
+}
+
+th:not(th:first-child) {
+    width: 5rem;
+}
+
+.fix-table-container-margin {
+    margin: 0 -1rem;
+}
