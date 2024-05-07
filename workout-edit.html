@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/style.css">
+
+    <title>Editar treino</title>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header class="header">
+
+            <button class="menu-button" type="button">
+                <img class="menu-button__icon" src="./assets/menu-icon.svg">
+            </button>
+
+            <h1 class="title">Editar treino</h1>
+
+            <button class="menu-button" type="button">
+                <img class="menu-button__icon" src="./assets/back-button-icon.svg">
+            </button>
+
+        </header>
+
+        <main class="mt-3">
+
+            <form>
+                <label class="label" for="workout-title">Título do treino</label>
+
+                <div class="input-group">
+                    <input name="workout-title" class="input" placeholder="Digite o título do treino" type="text">
+                    <button type="submit">
+                        <img src="./assets/check-icon.svg">
+                    </button>
+                </div>
+
+                <span class="error-message">Título não pode ficar vazio</span>
+            </form>
+
+            <div class="fix-table-container-margin">
+
+                <table class="mt-2">
+                    <thead>
+                        <th>Exercício</th>
+                        <th>Séries</th>
+                        <th>Rep.</th>
+                        <th>Editar</th>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Supino reto</td>
+                            <td>3</td>
+                            <td>10</td>
+                            <td>
+                                <button class="edit-button">
+                                    <img src="./assets/edit-icon.svg">
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Supino reto</td>
+                            <td>3</td>
+                            <td>10</td>
+                            <td>
+                                <button class="edit-button">
+                                    <img src="./assets/edit-icon.svg">
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <a class="navigate-link">Adicionar exercício</a>
+            <a class="delete-link mt-3">Excluir treino</a>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>
