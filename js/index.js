@@ -12,6 +12,10 @@ form.addEventListener('submit', async function(event) {
 
     const requestData = {
         method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user)
     }
 
     /**
