@@ -25,6 +25,9 @@ form.addEventListener('submit', async function(event) {
      * Criar exercício
      */
 
-    await fetch(url, requestData)
+    const response = await fetch(url, requestData)
+    const data = await response.json()
+
+    console.log(data)
 
 })
