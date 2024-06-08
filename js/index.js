@@ -1,6 +1,6 @@
 const form = document.querySelector('form')
 
-form.addEventListener('submit', function(event) {
+form.addEventListener('submit', async function(event) {
     event.preventDefault()
 
     const user = {
@@ -8,19 +8,19 @@ form.addEventListener('submit', function(event) {
         password: document.querySelector('#password').value
     }
 
-    console.log(user)
-    console.log(
-        JSON.stringify(user)
-    )
+    const url = 'http://127.0.0.1:3333/sessions'
 
-    // JavaScript Object Notation = JSON
+    const requestData = {
+        method: 'POST',
+    }
 
     /**
-     * JSON é um formato de texto padrão para
-     * representar dados estruturados, usado
-     * principalmente para a troca de dados entre um
-     * servidor e uma aplicação web.
+     * Login
+     * Criar conta
+     * Criar treino
+     * Criar exercício
      */
 
-    // enviarParaOBackEnd(user)
+    await fetch(url, requestData)
+
 })
