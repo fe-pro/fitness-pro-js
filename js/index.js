@@ -1,5 +1,10 @@
 const form = document.querySelector('form')
 
+const token = localStorage.getItem('token')
+if (token) {
+    location.replace('/workout-list.html')
+}
+
 form.addEventListener('submit', async function(event) {
     event.preventDefault()
 
@@ -18,20 +23,12 @@ form.addEventListener('submit', async function(event) {
         body: JSON.stringify(user)
     }
 
-    /**
-     * Login
-     * Criar conta
-     * Criar treino
-     * Criar exercício
-     */
-
     const response = await fetch(url, requestData)
 
     if (response.ok) {
         const data = await response.json()
         localStorage.setItem('token', data.token)
-        console.log(data.token)
-        // location.replace('/workout-list.html')
+        location.replace('/workout-list.html')
     }
 
     if (response.status === 400) {
