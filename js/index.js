@@ -27,6 +27,7 @@ form.addEventListener('submit', async function(event) {
 
     const response = await fetch(url, requestData)
     const data = await response.json()
+    location.replace('/workout-list.html')
 
     console.log(data)
 
