@@ -29,7 +29,9 @@ form.addEventListener('submit', async function(event) {
 
     if (response.ok) {
         const data = await response.json()
-        location.replace('/workout-list.html')
+        localStorage.setItem('token', data.token)
+        console.log(data.token)
+        // location.replace('/workout-list.html')
     }
 
     if (response.status === 400) {
