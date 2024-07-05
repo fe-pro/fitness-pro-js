@@ -26,9 +26,15 @@ form.addEventListener('submit', async function(event) {
      */
 
     const response = await fetch(url, requestData)
-    const data = await response.json()
-    location.replace('/workout-list.html')
 
-    console.log(data)
+    if (response.ok) {
+        const data = await response.json()
+        location.replace('/workout-list.html')
+    }
 
+    if (response.status === 400) {
+        console.error('Usuário ou senha inválido.')
+    } else if (response.ok === false) {
+        console.error('Erro ao efetuar login.')
+    }
 })
