@@ -1,4 +1,3 @@
-const token = localStorage.getItem('token')
-if (!token) {
-    location.replace('/')
-}
+import { authService } from './services/auth.service.js';
+
+authService.routeGuard()

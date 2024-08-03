@@ -1,4 +1,8 @@
+import { authService } from './services/auth.service.js'
+
 const form = document.querySelector('form')
+
+authService.routeGuard()
 
 form.addEventListener('submit', async function(event) {
     event.preventDefault()

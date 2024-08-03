@@ -1,9 +1,8 @@
+import { authService } from './services/auth.service.js'
+
 const form = document.querySelector('form')
 
-const token = localStorage.getItem('token')
-if (token) {
-    location.replace('/workout-list.html')
-}
+authService.routeGuard()
 
 form.addEventListener('submit', async function(event) {
     event.preventDefault()
