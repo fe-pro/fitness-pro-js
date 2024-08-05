@@ -4,7 +4,9 @@ const form = document.querySelector('form')
 
 authService.routeGuard()
 
-form.addEventListener('submit', async function(event) {
+form.addEventListener('submit', handleLoginFormSubmit)
+
+async function handleLoginFormSubmit(event) {
     event.preventDefault()
 
     const user = {
@@ -35,4 +37,4 @@ form.addEventListener('submit', async function(event) {
     } else if (response.ok === false) {
         console.error('Erro ao efetuar login.')
     }
-})
+}
