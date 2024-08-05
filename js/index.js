@@ -14,17 +14,7 @@ async function handleLoginFormSubmit(event) {
         password: document.querySelector('#password').value
     }
 
-    const url = 'http://127.0.0.1:3333/sessions'
-
-    const requestData = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(user)
-    }
-
-    const response = await fetch(url, requestData)
+    const response = await authService.login(user)
 
     if (response.ok) {
         const data = await response.json()
