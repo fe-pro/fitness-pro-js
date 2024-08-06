@@ -33,7 +33,7 @@ export const authService = {
       throw new Error('Erro ao efetuar o login, tente novamente mais tarde.')
     }
 
-    const data = await response.json()
-    return data.token
+    const { token } = await response.json()
+    return token
   }
 }

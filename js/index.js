@@ -1,10 +1,13 @@
 import { authService } from './services/auth.service.js'
 
-const form = document.querySelector('form')
+document.addEventListener('DOMContentLoaded', initPage)
 
-authService.routeGuard()
+function initPage() {
 
-form.addEventListener('submit', handleLoginFormSubmit)
+    authService.routeGuard()
+    const form = document.querySelector('form')
+    form.addEventListener('submit', handleLoginFormSubmit)
+}
 
 async function handleLoginFormSubmit(event) {
     event.preventDefault()
@@ -17,21 +20,10 @@ async function handleLoginFormSubmit(event) {
     try {
 
         const token = await authService.login(user)
-        console.log(token)
+        localStorage.setItem('token', token)
+        location.replace('/workout-list.html')
 
     } catch (error) {
         console.error(error.message)
     }
-
-    // if (response.ok) {
-    //     const data = await response.json()
-    //     localStorage.setItem('token', data.token)
-    //     location.replace('/workout-list.html')
-    // }
-
-    // if (response.status === 400) {
-    //     console.error('Usuário ou senha inválido.')
-    // } else if (response.ok === false) {
-    //     console.error('Erro ao efetuar login.')
-    // }
 }
