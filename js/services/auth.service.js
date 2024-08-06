@@ -25,21 +25,12 @@ export const authService = {
 
     const response = await fetch(url, requestData)
 
-    /**
-
-    {
-      ok: true ou false
-      status: 200, 400, 500 (200 ~ 299)
-    }
-
-     */
-
     if (response.status === 400) {
-      return 'Usuário ou senha inválido.'
+      throw new Error('Usuário ou senha inválido.')
     }
 
     if (!response.ok) {
-      return 'Erro ao efetuar o login, tente novamente mais tarde.'
+      throw new Error('Erro ao efetuar o login, tente novamente mais tarde.')
     }
 
     const data = await response.json()

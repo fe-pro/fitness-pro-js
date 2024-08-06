@@ -14,17 +14,24 @@ async function handleLoginFormSubmit(event) {
         password: document.querySelector('#password').value
     }
 
-    const response = await authService.login(user)
+    try {
 
-    if (response.ok) {
-        const data = await response.json()
-        localStorage.setItem('token', data.token)
-        location.replace('/workout-list.html')
+        const token = await authService.login(user)
+        console.log(token)
+
+    } catch (error) {
+        console.error(error.message)
     }
 
-    if (response.status === 400) {
-        console.error('Usuário ou senha inválido.')
-    } else if (response.ok === false) {
-        console.error('Erro ao efetuar login.')
-    }
+    // if (response.ok) {
+    //     const data = await response.json()
+    //     localStorage.setItem('token', data.token)
+    //     location.replace('/workout-list.html')
+    // }
+
+    // if (response.status === 400) {
+    //     console.error('Usuário ou senha inválido.')
+    // } else if (response.ok === false) {
+    //     console.error('Erro ao efetuar login.')
+    // }
 }
