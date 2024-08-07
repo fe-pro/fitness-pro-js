@@ -1,10 +1,15 @@
 import { authService } from './services/auth.service.js'
 
-const form = document.querySelector('form')
+document.addEventListener('DOMContentLoaded', initPage)
 
-authService.routeGuard()
+function initPage() {
 
-form.addEventListener('submit', async function(event) {
+    authService.routeGuard()
+    const form = document.querySelector('form')
+    form.addEventListener('submit', handleCreateAccountFormSubmit)
+}
+
+async function handleCreateAccountFormSubmit(event) {
     event.preventDefault()
 
     const newUser = {
@@ -13,21 +18,11 @@ form.addEventListener('submit', async function(event) {
         password:  document.querySelector('input[name="password"]').value
     }
 
-    console.log(newUser)
-
-    // Rota: /users
-
-    const url = 'http://127.0.0.1:3333/users'
-
-    const requestData ={
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newUser)
+    try {
+        
+        await authService.createAccount(newUser)
+        console.log('Sucesso!')
+    } catch (error) {
+        console.error(error.message)
     }
-
-    const response = await fetch(url, requestData)
-    const data = await response.json()
-    console.log(data)
-})
+}

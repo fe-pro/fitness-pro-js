@@ -35,5 +35,28 @@ export const authService = {
 
     const { token } = await response.json()
     return token
+  },
+  createAccount: async (newUser) => {
+    const url = 'http://127.0.0.1:3333/users'
+
+    const requestData ={
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newUser)
+    }
+
+    const response = await fetch(url, requestData)
+
+    if (response.status === 409) {
+      throw new Error('E-mail já cadastrado.')
+    }
+
+    if (!response.ok) {
+      throw new Error('Erro ao criar nova conta, tente novamente.');
+    }
+
+    return response
   }
 }
