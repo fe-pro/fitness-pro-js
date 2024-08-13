@@ -12,14 +12,22 @@ function initPage() {
 async function handleLoginFormSubmit(event) {
     event.preventDefault()
 
-    const user = {
-        email: document.querySelector('#email').value,
-        password: document.querySelector('#password').value
+    const emailInput = document.querySelector('#emailInput')
+    const passwordInput = document.querySelector('#passwordInput')
+
+    const isPasswordValid = passwordInput.value.length >= 6 ? true : false
+
+    if(!isPasswordValid) {
+        return
+    }
+
+    const loginData = {
+        email: emailInput.value,
+        password: passwordInput.value
     }
 
     try {
-
-        const token = await authService.login(user)
+        const token = await authService.login(loginData)
         localStorage.setItem('token', token)
         location.replace('/workout-list.html')
 
