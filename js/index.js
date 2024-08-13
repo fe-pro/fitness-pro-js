@@ -16,9 +16,14 @@ async function handleLoginFormSubmit(event) {
     const passwordInput = document.querySelector('#passwordInput')
 
     const isPasswordValid = passwordInput.value.length >= 6 ? true : false
+    
     console.log(`isPasswordValid ${isPasswordValid}`)
 
     passwordInput.classList.toggle('invalid', !isPasswordValid)
+
+    isPasswordValid === true
+        ? passwordInput.nextElementSibling.textContent = ''
+        : passwordInput.nextElementSibling.textContent = 'Senha deve ter no mínimo 6 caracteres'
 
     if(!isPasswordValid) {
         return
