@@ -16,6 +16,9 @@ async function handleLoginFormSubmit(event) {
     const passwordInput = document.querySelector('#passwordInput')
 
     const isPasswordValid = passwordInput.value.length >= 6 ? true : false
+    console.log(`isPasswordValid ${isPasswordValid}`)
+
+    passwordInput.classList.toggle('invalid', !isPasswordValid)
 
     if(!isPasswordValid) {
         return
