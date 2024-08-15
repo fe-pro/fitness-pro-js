@@ -17,7 +17,7 @@ async function handleLoginFormSubmit(event) {
 
     const isFormValid = validateForm(emailInput, passwordInput)
 
-    if(!isFormValid) {
+    if (!isFormValid) {
         return
     }
 
@@ -40,27 +40,35 @@ function validateForm(emailInput, passwordInput) {
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
     const isEmailValid = emailRegex.test(emailInput.value.trim())
-    console.log(`isEmailValid ${isEmailValid}`)
 
-    emailInput.classList.toggle('invalid', !isEmailValid)
-
-    isEmailValid === true
-        ? emailInput.nextElementSibling.textContent = ''
-        : emailInput.nextElementSibling.textContent = 'E-mail inválido'
+    displayErrorMessage({
+        inputElement: emailInput,
+        isValid:  isEmailValid,
+        errorContainer:  emailInput.nextElementSibling,
+        errorMessage: 'E-mail inválido'
+    })
 
     const isPasswordValid = passwordInput.value.trim().length >= 6 ? true : false
-    
-    console.log(`isPasswordValid ${isPasswordValid}`)
 
-    passwordInput.classList.toggle('invalid', !isPasswordValid)
-
-    isPasswordValid === true
-        ? passwordInput.nextElementSibling.textContent = ''
-        : passwordInput.nextElementSibling.textContent = 'Senha deve ter no mínimo 6 caracteres'
+    displayErrorMessage({
+        inputElement: passwordInput,
+        isValid: isPasswordValid,
+        errorContainer: passwordInput.nextElementSibling,
+        errorMessage: 'Senha deve ter no mínimo 6 caracteres'
+    })
 
     if (isEmailValid && isPasswordValid) {
         return true
     }
 
     return false
+}
+
+function displayErrorMessage({ inputElement, isValid, errorContainer, errorMessage }) {
+
+    inputElement.classList.toggle('invalid', !isValid)
+
+    isValid === true
+        ? errorContainer.textContent = ''
+        : errorContainer.textContent = errorMessage
 }
