@@ -15,27 +15,9 @@ async function handleLoginFormSubmit(event) {
     const emailInput = document.querySelector('#emailInput')
     const passwordInput = document.querySelector('#passwordInput')
 
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-    const isEmailValid = emailRegex.test(emailInput.value)
-    console.log(`isEmailValid ${isEmailValid}`)
+    const isFormValid = validateForm(emailInput, passwordInput)
 
-    emailInput.classList.toggle('invalid', !isEmailValid)
-
-    isEmailValid === true
-        ? emailInput.nextElementSibling.textContent = ''
-        : emailInput.nextElementSibling.textContent = 'E-mail inválido'
-
-    const isPasswordValid = passwordInput.value.length >= 6 ? true : false
-    
-    console.log(`isPasswordValid ${isPasswordValid}`)
-
-    passwordInput.classList.toggle('invalid', !isPasswordValid)
-
-    isPasswordValid === true
-        ? passwordInput.nextElementSibling.textContent = ''
-        : passwordInput.nextElementSibling.textContent = 'Senha deve ter no mínimo 6 caracteres'
-
-    if(!isPasswordValid || !isEmailValid) {
+    if(!isFormValid) {
         return
     }
 
@@ -52,4 +34,33 @@ async function handleLoginFormSubmit(event) {
     } catch (error) {
         console.error(error.message)
     }
+}
+
+function validateForm(emailInput, passwordInput) {
+
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    const isEmailValid = emailRegex.test(emailInput.value.trim())
+    console.log(`isEmailValid ${isEmailValid}`)
+
+    emailInput.classList.toggle('invalid', !isEmailValid)
+
+    isEmailValid === true
+        ? emailInput.nextElementSibling.textContent = ''
+        : emailInput.nextElementSibling.textContent = 'E-mail inválido'
+
+    const isPasswordValid = passwordInput.value.trim().length >= 6 ? true : false
+    
+    console.log(`isPasswordValid ${isPasswordValid}`)
+
+    passwordInput.classList.toggle('invalid', !isPasswordValid)
+
+    isPasswordValid === true
+        ? passwordInput.nextElementSibling.textContent = ''
+        : passwordInput.nextElementSibling.textContent = 'Senha deve ter no mínimo 6 caracteres'
+
+    if (isEmailValid && isPasswordValid) {
+        return true
+    }
+
+    return false
 }
