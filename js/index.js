@@ -10,6 +10,7 @@ function initPage() {
 }
 
 async function handleLoginFormSubmit(event) {
+
     event.preventDefault()
 
     const emailInput = document.querySelector('#emailInput')
@@ -41,14 +42,14 @@ function validateForm(emailInput, passwordInput) {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
     const isEmailValid = emailRegex.test(emailInput.value.trim())
 
+    const isPasswordValid = passwordInput.value.trim().length >= 6 ? true : false
+
     displayErrorMessage({
         inputElement: emailInput,
         isValid:  isEmailValid,
         errorContainer:  emailInput.nextElementSibling,
         errorMessage: 'E-mail inválido'
     })
-
-    const isPasswordValid = passwordInput.value.trim().length >= 6 ? true : false
 
     displayErrorMessage({
         inputElement: passwordInput,
@@ -62,13 +63,4 @@ function validateForm(emailInput, passwordInput) {
     }
 
     return false
-}
-
-function displayErrorMessage({ inputElement, isValid, errorContainer, errorMessage }) {
-
-    inputElement.classList.toggle('invalid', !isValid)
-
-    isValid === true
-        ? errorContainer.textContent = ''
-        : errorContainer.textContent = errorMessage
 }
