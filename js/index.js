@@ -15,6 +15,16 @@ async function handleLoginFormSubmit(event) {
     const emailInput = document.querySelector('#emailInput')
     const passwordInput = document.querySelector('#passwordInput')
 
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    const isEmailValid = emailRegex.test(emailInput.value)
+    console.log(`isEmailValid ${isEmailValid}`)
+
+    emailInput.classList.toggle('invalid', !isEmailValid)
+
+    isEmailValid === true
+        ? emailInput.nextElementSibling.textContent = ''
+        : emailInput.nextElementSibling.textContent = 'E-mail inválido'
+
     const isPasswordValid = passwordInput.value.length >= 6 ? true : false
     
     console.log(`isPasswordValid ${isPasswordValid}`)
@@ -25,7 +35,7 @@ async function handleLoginFormSubmit(event) {
         ? passwordInput.nextElementSibling.textContent = ''
         : passwordInput.nextElementSibling.textContent = 'Senha deve ter no mínimo 6 caracteres'
 
-    if(!isPasswordValid) {
+    if(!isPasswordValid || !isEmailValid) {
         return
     }
 
