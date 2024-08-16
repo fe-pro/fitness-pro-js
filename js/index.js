@@ -1,5 +1,5 @@
 import { authService } from './services/auth.service.js'
-import { displayErrorMessage, validateInput, validators } from './utils/validate.js'
+import { validate, validators } from './utils/validate.js'
 
 document.addEventListener('DOMContentLoaded', initPage)
 
@@ -40,17 +40,17 @@ async function handleLoginFormSubmit(event) {
 
 function validateForm(emailInput, passwordInput) {
 
-    const isEmailValid = validateInput(emailInput, validators.email)
-    const isPasswordValid = validateInput(passwordInput, validators.minSixChar)
+    const isEmailValid =  validate.validateInput(emailInput, validators.email)
+    const isPasswordValid =  validate.validateInput(passwordInput, validators.minSixChar)
 
-    displayErrorMessage({
+    validate.displayErrorMessage({
         inputElement: emailInput,
         isValid:  isEmailValid,
         errorContainer:  emailInput.nextElementSibling,
         errorMessage: 'E-mail inválido'
     })
 
-    displayErrorMessage({
+    validate.displayErrorMessage({
         inputElement: passwordInput,
         isValid: isPasswordValid,
         errorContainer: passwordInput.nextElementSibling,

@@ -1,5 +1,5 @@
 import { authService } from './services/auth.service.js'
-import { displayErrorMessage, validateInput, validators } from './utils/validate.js'
+import { validate, validators } from './utils/validate.js'
 
 document.addEventListener('DOMContentLoaded', initPage)
 
@@ -42,33 +42,33 @@ async function handleCreateAccountFormSubmit(event) {
 
 function validateForm(nameInput, emailInput, passwordInput, confirmPasswordInput) {
 
-    const isNameValid = validateInput(nameInput, validators.required)
-    const isEmailValid = validateInput(emailInput, validators.email)
-    const isPasswordValid = validateInput(passwordInput, validators.minSixChar)
+    const isNameValid = validate.validateInput(nameInput, validators.required)
+    const isEmailValid =  validate.validateInput(emailInput, validators.email)
+    const isPasswordValid =  validate.validateInput(passwordInput, validators.minSixChar)
     const isPasswordEqual = validators.compare(passwordInput.value.trim(), confirmPasswordInput.value.trim())
 
-    displayErrorMessage({
+    validate.displayErrorMessage({
         inputElement: nameInput,
         isValid: isNameValid,
         errorContainer: nameInput.nextElementSibling,
         errorMessage: 'Nome é obrigatório'
     })
 
-    displayErrorMessage({
+    validate.displayErrorMessage({
         inputElement: emailInput,
         isValid: isEmailValid,
         errorContainer: emailInput.nextElementSibling,
         errorMessage: 'E-mail inválido'
     })
 
-    displayErrorMessage({
+    validate.displayErrorMessage({
         inputElement: passwordInput,
         isValid: isPasswordValid,
         errorContainer: passwordInput.nextElementSibling,
         errorMessage: 'Senha deve ter no mínimo 6 caracteres'
     })
 
-    displayErrorMessage({
+    validate.displayErrorMessage({
         inputElement: confirmPasswordInput,
         isValid: isPasswordEqual,
         errorContainer: confirmPasswordInput.nextElementSibling,

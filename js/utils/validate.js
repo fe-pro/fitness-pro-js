@@ -1,16 +1,19 @@
-export function displayErrorMessage({ inputElement, isValid, errorContainer, errorMessage }) {
+export const validate = {
 
-  inputElement.classList.toggle('invalid', !isValid)
+  validateInput: (inputElement, validator) => {
+    const inputValue = inputElement.value.trim()
+    const isValid = validator(inputValue)
+    return isValid
+  },
 
-  isValid === true
-      ? errorContainer.textContent = ''
-      : errorContainer.textContent = errorMessage
-}
+  displayErrorMessage: ({ inputElement, isValid, errorContainer, errorMessage }) => {
 
-export function validateInput(inputElement, validator) {
-  const inputValue = inputElement.value.trim()
-  const isValid = validator(inputValue)
-  return isValid
+    inputElement.classList.toggle('invalid', !isValid)
+  
+    isValid === true
+        ? errorContainer.textContent = ''
+        : errorContainer.textContent = errorMessage
+  }
 }
 
 export const validators = {
