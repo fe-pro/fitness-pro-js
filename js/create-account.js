@@ -1,5 +1,5 @@
 import { authService } from './services/auth.service.js'
-import { displayErrorMessage, validateConfirmPassword, validateEmail, validateName, validatePassword } from './utils/validate.js'
+import { displayErrorMessage, validateInput, validators } from './utils/validate.js'
 
 document.addEventListener('DOMContentLoaded', initPage)
 
@@ -42,10 +42,10 @@ async function handleCreateAccountFormSubmit(event) {
 
 function validateForm(nameInput, emailInput, passwordInput, confirmPasswordInput) {
 
-    const isNameValid = validateName(nameInput)
-    const isEmailValid = validateEmail(emailInput)
-    const isPasswordValid = validatePassword(passwordInput)
-    const isPasswordEqual = validateConfirmPassword(passwordInput, confirmPasswordInput)
+    const isNameValid = validateInput(nameInput, validators.required)
+    const isEmailValid = validateInput(emailInput, validators.email)
+    const isPasswordValid = validateInput(passwordInput, validators.minSixChar)
+    const isPasswordEqual = validators.compare(passwordInput.value.trim(), confirmPasswordInput.value.trim())
 
     displayErrorMessage({
         inputElement: nameInput,
