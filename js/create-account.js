@@ -16,8 +16,9 @@ async function handleCreateAccountFormSubmit(event) {
     const nameInput = document.querySelector('#nameInput')
     const emailInput = document.querySelector('#emailInput')
     const passwordInput = document.querySelector('#passwordInput')
+    const confirmPasswordInput = document.querySelector('#confirmPasswordInput')
 
-    const isValid = validateForm(nameInput, emailInput, passwordInput)
+    const isValid = validateForm(nameInput, emailInput, passwordInput, confirmPasswordInput)
 
     if(!isValid) {
         return
@@ -38,7 +39,7 @@ async function handleCreateAccountFormSubmit(event) {
     }
 }
 
-function validateForm(nameInput, emailInput, passwordInput) {
+function validateForm(nameInput, emailInput, passwordInput, confirmPasswordInput) {
 
     const isNameValid = nameInput.value.trim() !== '' ? true : false
     
@@ -46,6 +47,8 @@ function validateForm(nameInput, emailInput, passwordInput) {
     const isEmailValid = emailRegex.test(emailInput.value.trim())
 
     const isPasswordValid = passwordInput.value.trim().length >= 6 ? true : false
+
+    const isPasswordEqual = (passwordInput.value === confirmPasswordInput.value && passwordInput.value.trim() !== '') ? true : false
 
     displayErrorMessage({
         inputElement: nameInput,
@@ -68,7 +71,14 @@ function validateForm(nameInput, emailInput, passwordInput) {
         errorMessage: 'Senha deve ter no mínimo 6 caracteres'
     })
 
-    if(isNameValid && isEmailValid && isPasswordValid) {
+    displayErrorMessage({
+        inputElement: confirmPasswordInput,
+        isValid: isPasswordEqual,
+        errorContainer: confirmPasswordInput.nextElementSibling,
+        errorMessage: 'Senhas não conferem'
+    })
+
+    if(isNameValid && isEmailValid && isPasswordValid && isPasswordEqual) {
         return true
     }
 
