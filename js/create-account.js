@@ -19,7 +19,7 @@ async function handleCreateAccountFormSubmit(event) {
 
     const isValid = validateForm(nameInput, emailInput, passwordInput)
 
-    if(isValid === false) {
+    if(!isValid) {
         return
     }
 
@@ -30,9 +30,9 @@ async function handleCreateAccountFormSubmit(event) {
     }
 
     try {
-        
         await authService.createAccount(newUser)
         console.log('Sucesso!')
+
     } catch (error) {
         console.error(error.message)
     }
@@ -41,6 +41,9 @@ async function handleCreateAccountFormSubmit(event) {
 function validateForm(nameInput, emailInput, passwordInput) {
 
     const isNameValid = nameInput.value.trim() !== '' ? true : false
+    
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    const isEmailValid = emailRegex.test(emailInput.value.trim())
 
     displayErrorMessage({
         inputElement: nameInput,
@@ -49,7 +52,14 @@ function validateForm(nameInput, emailInput, passwordInput) {
         errorMessage: 'Nome é obrigatório'
     })
 
-    if(isNameValid) {
+    displayErrorMessage({
+        inputElement: emailInput,
+        isValid: isEmailValid,
+        errorContainer: emailInput.nextElementSibling,
+        errorMessage: 'E-mail inválido'
+    })
+
+    if(isNameValid && isEmailValid) {
         return true
     }
 
