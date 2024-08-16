@@ -45,6 +45,8 @@ function validateForm(nameInput, emailInput, passwordInput) {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
     const isEmailValid = emailRegex.test(emailInput.value.trim())
 
+    const isPasswordValid = passwordInput.value.trim().length >= 6 ? true : false
+
     displayErrorMessage({
         inputElement: nameInput,
         isValid: isNameValid,
@@ -59,7 +61,14 @@ function validateForm(nameInput, emailInput, passwordInput) {
         errorMessage: 'E-mail inválido'
     })
 
-    if(isNameValid && isEmailValid) {
+    displayErrorMessage({
+        inputElement: passwordInput,
+        isValid: isPasswordValid,
+        errorContainer: passwordInput.nextElementSibling,
+        errorMessage: 'Senha deve ter no mínimo 6 caracteres'
+    })
+
+    if(isNameValid && isEmailValid && isPasswordValid) {
         return true
     }
 

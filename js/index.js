@@ -64,3 +64,12 @@ function validateForm(emailInput, passwordInput) {
 
     return false
 }
+
+function displayErrorMessage({ inputElement, isValid, errorContainer, errorMessage }) {
+
+    inputElement.classList.toggle('invalid', !isValid)
+
+    isValid === true
+        ? errorContainer.textContent = ''
+        : errorContainer.textContent = errorMessage
+}
