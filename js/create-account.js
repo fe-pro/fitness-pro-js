@@ -1,4 +1,5 @@
 import { authService } from './services/auth.service.js'
+import { displayErrorMessage, validateConfirmPassword, validateEmail, validateName, validatePassword } from './utils/validate.js'
 
 document.addEventListener('DOMContentLoaded', initPage)
 
@@ -41,14 +42,10 @@ async function handleCreateAccountFormSubmit(event) {
 
 function validateForm(nameInput, emailInput, passwordInput, confirmPasswordInput) {
 
-    const isNameValid = nameInput.value.trim() !== '' ? true : false
-    
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-    const isEmailValid = emailRegex.test(emailInput.value.trim())
-
-    const isPasswordValid = passwordInput.value.trim().length >= 6 ? true : false
-
-    const isPasswordEqual = (passwordInput.value === confirmPasswordInput.value && passwordInput.value.trim() !== '') ? true : false
+    const isNameValid = validateName(nameInput)
+    const isEmailValid = validateEmail(emailInput)
+    const isPasswordValid = validatePassword(passwordInput)
+    const isPasswordEqual = validateConfirmPassword(passwordInput, confirmPasswordInput)
 
     displayErrorMessage({
         inputElement: nameInput,
@@ -83,13 +80,4 @@ function validateForm(nameInput, emailInput, passwordInput, confirmPasswordInput
     }
 
     return false
-}
-
-function displayErrorMessage({ inputElement, isValid, errorContainer, errorMessage }) {
-
-    inputElement.classList.toggle('invalid', !isValid)
-
-    isValid === true
-        ? errorContainer.textContent = ''
-        : errorContainer.textContent = errorMessage
 }

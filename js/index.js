@@ -1,4 +1,5 @@
 import { authService } from './services/auth.service.js'
+import { displayErrorMessage, validateEmail, validatePassword } from './utils/validate.js'
 
 document.addEventListener('DOMContentLoaded', initPage)
 
@@ -39,10 +40,8 @@ async function handleLoginFormSubmit(event) {
 
 function validateForm(emailInput, passwordInput) {
 
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-    const isEmailValid = emailRegex.test(emailInput.value.trim())
-
-    const isPasswordValid = passwordInput.value.trim().length >= 6 ? true : false
+    const isEmailValid = validateEmail(emailInput)
+    const isPasswordValid = validatePassword(passwordInput)
 
     displayErrorMessage({
         inputElement: emailInput,
@@ -63,13 +62,4 @@ function validateForm(emailInput, passwordInput) {
     }
 
     return false
-}
-
-function displayErrorMessage({ inputElement, isValid, errorContainer, errorMessage }) {
-
-    inputElement.classList.toggle('invalid', !isValid)
-
-    isValid === true
-        ? errorContainer.textContent = ''
-        : errorContainer.textContent = errorMessage
 }
