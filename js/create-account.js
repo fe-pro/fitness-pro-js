@@ -1,4 +1,5 @@
 import { authService } from './services/auth.service.js'
+import { toast } from './utils/toast.js'
 import { validate, validators } from './utils/validate.js'
 
 document.addEventListener('DOMContentLoaded', initPage)
@@ -33,10 +34,10 @@ async function handleCreateAccountFormSubmit(event) {
 
     try {
         await authService.createAccount(newUser)
-        console.log('Sucesso!')
+        toast('success', 'Conta criada com sucesso!')
 
     } catch (error) {
-        console.error(error.message)
+        toast('error', error.message)
     }
 }
 
