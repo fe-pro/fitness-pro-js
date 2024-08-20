@@ -1,4 +1,5 @@
 import { authService } from './services/auth.service.js'
+import { toast } from './utils/toast.js'
 import { validate, validators } from './utils/validate.js'
 
 document.addEventListener('DOMContentLoaded', initPage)
@@ -34,7 +35,7 @@ async function handleLoginFormSubmit(event) {
         location.replace('/workout-list.html')
 
     } catch (error) {
-        console.error(error.message)
+        toast(error.message)
     }
 }
 
