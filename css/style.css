@@ -126,6 +126,7 @@ body {
 
 .toast-container {
 
+    overflow: hidden;
     position: fixed;
 
     /* Top: Cima - Right: Direita - Bottom: Baixo - Left: Esquerda */
@@ -138,6 +139,30 @@ body {
     color: #fff;
     background-color: #000;
     border-radius: 5px;
+}
+
+.toast-border {
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    height: 0.3rem;
+
+    animation: moveBorder 2000ms ease-out forwards;
+    animation-delay: 200ms;
+
+    background-color: #AC2020;
+}
+
+@keyframes moveBorder {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 100%;
+    }
 }
 
 /* Menu */
