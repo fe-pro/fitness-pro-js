@@ -7,16 +7,33 @@ document.addEventListener('DOMContentLoaded', initPage)
 function initPage() {
 
     authService.routeGuard()
-    const form = document.querySelector('form')
-    form.addEventListener('submit', handleLoginFormSubmit)
+
+    const HTMLElements = getHTMLElements()
+
+    setupEventListeners(HTMLElements)
 }
 
-async function handleLoginFormSubmit(event) {
+function getHTMLElements() {
+    return {
+        loginForm: document.querySelector('#loginForm'),
+        emailInput: document.querySelector('#emailInput'),
+        passwordInput: document.querySelector('#passwordInput'),
+    }
+}
+
+function setupEventListeners(HTMLElements) {
+
+    const { loginForm } = HTMLElements
+
+    loginForm.addEventListener('submit',
+        async (event) => await handleLoginFormSubmit(event, HTMLElements))
+}
+
+async function handleLoginFormSubmit(event, HTMLElements) {
 
     event.preventDefault()
 
-    const emailInput = document.querySelector('#emailInput')
-    const passwordInput = document.querySelector('#passwordInput')
+    const { emailInput, passwordInput } = HTMLElements
 
     const isFormValid = validateForm(emailInput, passwordInput)
 
