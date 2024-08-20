@@ -7,19 +7,37 @@ document.addEventListener('DOMContentLoaded', initPage)
 function initPage() {
 
     authService.routeGuard()
-    const form = document.querySelector('form')
-    form.addEventListener('submit', handleCreateAccountFormSubmit)
+
+    const HTMLElements = getHTMLElements()
+
+    const { createAccountForm } = HTMLElements
+
+    createAccountForm.addEventListener('submit', async function(event) {
+        await handleCreateAccountFormSubmit(event, HTMLElements)
+    })
 }
 
-async function handleCreateAccountFormSubmit(event) {
+function getHTMLElements() {
+    return {
+        createAccountForm: document.querySelector('#createAccountForm'),
+        nameInput: document.querySelector('#nameInput'),
+        emailInput: document.querySelector('#emailInput'),
+        passwordInput: document.querySelector('#passwordInput'),
+        confirmPasswordInput: document.querySelector('#confirmPasswordInput'),
+    }
+}
+
+async function handleCreateAccountFormSubmit(event, HTMLElements) {
 
     event.preventDefault()
 
-    const createAccountForm = document.querySelector('form')
-    const nameInput = document.querySelector('#nameInput')
-    const emailInput = document.querySelector('#emailInput')
-    const passwordInput = document.querySelector('#passwordInput')
-    const confirmPasswordInput = document.querySelector('#confirmPasswordInput')
+    const {
+        createAccountForm,
+        nameInput,
+        emailInput,
+        passwordInput,
+        confirmPasswordInput
+    } = HTMLElements
 
     const isValid = validateForm(nameInput, emailInput, passwordInput, confirmPasswordInput)
 
