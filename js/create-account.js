@@ -15,6 +15,7 @@ async function handleCreateAccountFormSubmit(event) {
 
     event.preventDefault()
 
+    const createAccountForm = document.querySelector('form')
     const nameInput = document.querySelector('#nameInput')
     const emailInput = document.querySelector('#emailInput')
     const passwordInput = document.querySelector('#passwordInput')
@@ -35,6 +36,7 @@ async function handleCreateAccountFormSubmit(event) {
     try {
         await authService.createAccount(newUser)
         toast('success', 'Conta criada com sucesso!')
+        createAccountForm.reset()
 
     } catch (error) {
         toast('error', error.message)
