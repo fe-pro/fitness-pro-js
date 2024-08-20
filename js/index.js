@@ -35,7 +35,7 @@ async function handleLoginFormSubmit(event) {
         location.replace('/workout-list.html')
 
     } catch (error) {
-        toast(error.message)
+        toast('error', error.message)
     }
 }
 

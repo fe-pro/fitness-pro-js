@@ -1,13 +1,8 @@
-export function toast(message) {
+import { renderToast } from './templates.js'
 
-  const toastTemplate = `
-    <div class="toast-container">
-      <div class="toast-border"></div>
-      <span>${message}</span>
-    </div>
-  `
+export function toast(type, message) {
 
-  document.body.insertAdjacentHTML('beforeend', toastTemplate)
+  document.body.insertAdjacentHTML('beforeend', renderToast(type, message))
 
   setTimeout(() => {
     document.body.lastElementChild.remove()
