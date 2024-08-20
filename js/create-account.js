@@ -10,11 +10,7 @@ function initPage() {
 
     const HTMLElements = getHTMLElements()
 
-    const { createAccountForm } = HTMLElements
-
-    createAccountForm.addEventListener('submit', async function(event) {
-        await handleCreateAccountFormSubmit(event, HTMLElements)
-    })
+    setupEventListeners(HTMLElements)
 }
 
 function getHTMLElements() {
@@ -27,7 +23,15 @@ function getHTMLElements() {
     }
 }
 
-async function handleCreateAccountFormSubmit(event, HTMLElements) {
+function setupEventListeners(HTMLElements) {
+
+    const { createAccountForm } = HTMLElements
+
+    createAccountForm.addEventListener('submit',
+        async (event) => await handleCreateAccount(event, HTMLElements))
+}
+
+async function handleCreateAccount(event, HTMLElements) {
 
     event.preventDefault()
 
