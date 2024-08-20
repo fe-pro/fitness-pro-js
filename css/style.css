@@ -122,6 +122,24 @@ body {
     filter: brightness(0.8);
 }
 
+/* Toast */
+
+.toast-container {
+
+    position: fixed;
+
+    /* Top: Cima - Right: Direita - Bottom: Baixo - Left: Esquerda */
+
+    left: 1.5rem;
+    right: 1.5rem;
+    bottom: 2rem;
+
+    padding: 2rem;
+    color: #fff;
+    background-color: #000;
+    border-radius: 5px;
+}
+
 /* Menu */
 
 .menu-button {
