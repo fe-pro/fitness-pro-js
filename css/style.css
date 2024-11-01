@@ -182,6 +182,46 @@ body {
     filter: brightness(0.8);
 }
 
+.menu-container {
+    background-color: #FF8C2B;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.close-menu-button {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background: none;
+    border: none;
+}
+
+.menu-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 140px;
+}
+
+.menu-content a {
+    color: #2A2A2A;
+    text-decoration: none;
+    margin-bottom: 1.5rem;
+    font-size: 2.3rem;
+    font-weight: 700;
+    transition: color 200ms;
+}
+
+.menu-content a:hover {
+    color: #ffffff;
+}
+
+.menu-content a:last-child {
+    font-weight: 400;
+}
+
 /* Helpers */
 
 .flex-column {
