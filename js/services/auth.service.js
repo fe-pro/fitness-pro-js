@@ -58,5 +58,8 @@ export const authService = {
     }
 
     return response
+  },
+  logout: () => {
+    localStorage.removeItem('token')
   }
 }

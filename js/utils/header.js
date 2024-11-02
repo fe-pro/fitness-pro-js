@@ -1,23 +1,12 @@
-const menuTemplate = `
-  <div id="menuContainer" class="menu-container">
-      <button id="closeMenuButton" class="close-menu-button">
-          <img src="./assets/close-menu-icon.svg" alt="Botão fechar menu">
-      </button>
-
-      <div class="menu-content">
-          <a href="/workout-list.html">Treinos</a>
-          <a href="/create-workout.html">Novo treino</a>
-          <a href="#" id="logoutMenuItem">Sair</a>
-      </div>
-  </div>
-`
+import { authService } from '../services/auth.service.js'
+import { templates } from './templates.js'
 
 document.querySelector('#openMenuButton').addEventListener('click', handleOpenMenu)
 document.querySelector('#backMenuButton').addEventListener('click', handleBackButton)
 
 function handleOpenMenu() {
 
-  document.body.insertAdjacentHTML('beforeend', menuTemplate)
+  document.body.insertAdjacentHTML('beforeend', templates.renderMenu())
   const menuContainer = document.querySelector('#menuContainer')
 
   requestAnimationFrame(() => menuContainer.classList.add('active'))
@@ -33,7 +22,7 @@ function handleCloseMenu() {
 }
 
 function handleLogout() {
-  localStorage.removeItem('token')
+  authService.logout()
   location.replace('/')
 }
 
