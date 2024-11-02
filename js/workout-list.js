@@ -11,25 +11,36 @@ const menuTemplate = `
       <div class="menu-content">
           <a href="/workout-list.html">Treinos</a>
           <a href="/create-workout.html">Novo treino</a>
-          <a href="#">Sair</a>
+          <a href="#" id="logoutMenuItem">Sair</a>
       </div>
   </div>
 `
 
 document.querySelector('#openMenuButton').addEventListener('click', handleOpenMenu)
+document.querySelector('#backMenuButton').addEventListener('click', handleBackButton)
 
 function handleOpenMenu() {
 
   document.body.insertAdjacentHTML('beforeend', menuTemplate)
-
   const menuContainer = document.querySelector('#menuContainer')
 
   requestAnimationFrame(() => menuContainer.classList.add('active'))
 
   document.querySelector('#closeMenuButton').addEventListener('click', handleCloseMenu)
-  
+  document.querySelector('#logoutMenuItem').addEventListener('click', handleLogout)
 }
 
 function handleCloseMenu() {
-  document.querySelector('#menuContainer').remove()
+  const menuContainer = document.querySelector('#menuContainer')
+  menuContainer.classList.remove('active')
+  menuContainer.addEventListener('transitionend', () => menuContainer.remove())
+}
+
+function handleLogout() {
+  localStorage.removeItem('token')
+  location.replace('/')
+}
+
+function handleBackButton() {
+  history.back()
 }
