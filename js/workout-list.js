@@ -22,6 +22,10 @@ function handleOpenMenu() {
 
   document.body.insertAdjacentHTML('beforeend', menuTemplate)
 
+  const menuContainer = document.querySelector('#menuContainer')
+
+  requestAnimationFrame(() => menuContainer.classList.add('active'))
+
   document.querySelector('#closeMenuButton').addEventListener('click', handleCloseMenu)
   
 }
