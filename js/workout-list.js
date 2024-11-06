@@ -3,3 +3,8 @@ import './utils/header.js'
 
 authService.routeGuard()
 
+document.querySelector('#createWorkoutButton').addEventListener('click', handleNavigateToCreateWorkout)
+
+function handleNavigateToCreateWorkout() {
+  location.href = `/create-workout.html`
+}

@@ -1,7 +1,6 @@
 export const templates = {
 
-
-  renderToast: () => `
+  renderToast: (type, message) => `
     <div class="toast-container">
       <div class="toast-border ${toastType[type]}"></div>
       <span>${message}</span>
@@ -21,11 +20,6 @@ export const templates = {
         </div>
     </div>
   `
-
-}
-
-export function renderToast(type, message) {
-  return 
 }
 
 const toastType = {
