@@ -1,4 +1,6 @@
+import { workoutService } from './services/workout.service.js'
 import { validate, validators } from './utils/validate.js'
+import { toast } from './utils/toast.js'
 
 document.addEventListener('DOMContentLoaded', initPage)
 
@@ -37,20 +39,13 @@ async function handleCreateWorkout(event, HTMLElements) {
 
   const newWorkoutTitle = titleInput.value
   
-  const url = 'http://127.0.0.1:3333/workout'
-  const accessToken = localStorage.getItem('token')
-
-  const requestData = {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${accessToken}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ title: newWorkoutTitle })
+  try {
+    await workoutService.createWorkout(newWorkoutTitle)
+    location.href = '/workout-list.html'
+    
+  } catch (error) {
+    toast('error', error.message)
   }
-
-  const response = await fetch(url, requestData)
-  console.log(response)
 }
 
 function validateForm(titleInput) {
