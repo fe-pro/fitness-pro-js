@@ -34,10 +34,16 @@
         </header>
 
         <main class="mt-3">
-            <form>
+            <form id="createWorkoutForm">
+                
                 <label class="label" for="workout-title">Nome do treino</label>
-                <input class="input" type="text" name="workout-title" placeholder="DIgite o nome do treino">
-                <span class="error-message">Nome do treino é obrigatório</span>
+                <input
+                    class="input"
+                    id="titleInput"
+                    type="text"
+                    placeholder="DIgite o nome do treino">
+                <span class="error-message"></span>
+
                 <button class="button mt-3" type="submit">Criar</button>
             </form>
         </main>
