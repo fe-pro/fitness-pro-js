@@ -20,10 +20,10 @@ function setupEventListeners(HTMLElements) {
   const { createWorkoutForm } = HTMLElements
 
   createWorkoutForm.addEventListener('submit',
-    (event) => handleCreateWorkout(event, HTMLElements))
+    async (event) => await handleCreateWorkout(event, HTMLElements))
 }
 
-function handleCreateWorkout(event, HTMLElements) {
+async function handleCreateWorkout(event, HTMLElements) {
 
   event.preventDefault()
 
@@ -37,7 +37,20 @@ function handleCreateWorkout(event, HTMLElements) {
 
   const newWorkoutTitle = titleInput.value
   
-  console.log(newWorkoutTitle)
+  const url = 'http://127.0.0.1:3333/workout'
+  const accessToken = localStorage.getItem('token')
+
+  const requestData = {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ title: newWorkoutTitle })
+  }
+
+  const response = await fetch(url, requestData)
+  console.log(response)
 }
 
 function validateForm(titleInput) {
