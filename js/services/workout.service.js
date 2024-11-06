@@ -14,12 +14,18 @@ export const workoutService = {
       body: JSON.stringify({ title: workoutTitle })
     }
   
-    const response = await fetch(url, requestData)
+    try {
+      const response = await fetch(url, requestData)
+      
+      if (!response.ok) {
+        throw new Error('Erro ao criar treino.')
+      }
+  
+      return response
 
-    if (!response.ok) {
-      throw new Error('Erro ao criar treino.')
+    } catch(error) {
+      throw new Error('Falha interna, tente mais tarde.')
     }
 
-    return response
   }
 }
