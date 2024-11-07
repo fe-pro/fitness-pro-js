@@ -23,7 +23,7 @@ export const workoutService = {
   
       return response
 
-    } catch(error) {
+    } catch {
       throw new Error('Falha interna, tente mais tarde.')
     }
 

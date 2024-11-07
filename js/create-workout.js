@@ -1,10 +1,14 @@
 import { workoutService } from './services/workout.service.js'
 import { validate, validators } from './utils/validate.js'
 import { toast } from './utils/toast.js'
+import { authService } from './services/auth.service.js'
+import './utils/header.js'
 
 document.addEventListener('DOMContentLoaded', initPage)
 
 function initPage() {
+
+  authService.routeGuard()
 
   const HTMLElements = getHTMLElements()
 
