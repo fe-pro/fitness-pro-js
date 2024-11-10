@@ -25,9 +25,23 @@ function updateDOM(HTMLElements) {
 
   const { workoutListContainer } = HTMLElements
 
+  const workoutList = {
+    workouts: [
+      {
+        id: "4aaf3510-412d-4f7c-b449-c65ac6bbfaab",
+        title: "Costas"
+      },
+      {
+        id: "d29fd499-6ab5-42cc-83c7-6150e6031e97",
+        title: "Peito"
+      }
+    ]
+  }
+
+  const hasWorkoutsAvaliable = workoutList.workouts.length > 0
+
   workoutListContainer.innerHTML =
-    
-    false
+    hasWorkoutsAvaliable
       ? 'lista de treino'
       : renderEmptyList()
 }
