@@ -9,6 +9,8 @@ function initPage() {
 
   const HTMLElements = getHTMLElements()
 
+  updateDOM(HTMLElements)
+
   setupEventListeners(HTMLElements)
 }
 
@@ -17,6 +19,26 @@ function getHTMLElements() {
     navigateToCreateWorkoutButton: document.querySelector('#createWorkoutButton'),
     workoutListContainer: document.querySelector('#workoutListContainer')
   }
+}
+
+function updateDOM(HTMLElements) {
+
+  const { workoutListContainer } = HTMLElements
+
+  workoutListContainer.innerHTML =
+    
+    false
+      ? 'lista de treino'
+      : renderEmptyList()
+}
+
+function renderEmptyList() {
+  return `
+    <div class="fallback-render">
+      <img src="./assets/nothing-here-icon.svg">
+      <span>Nada por aqui!</span>
+    </div>
+  `
 }
 
 function setupEventListeners(HTMLElements) {
