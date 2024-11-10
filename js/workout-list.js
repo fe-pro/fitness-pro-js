@@ -42,8 +42,18 @@ function updateDOM(HTMLElements) {
 
   workoutListContainer.innerHTML =
     hasWorkoutsAvaliable
-      ? 'lista de treino'
+      ? renderWorkoutList(workoutList.workouts)
       : renderEmptyList()
+}
+
+function renderWorkoutList(workoutList) {
+
+  return `
+    <ul>${
+        workoutList.map(workout =>
+        `<li class="workout-item">${workout.title}</li>`).join('')
+    }</ul>
+  `
 }
 
 function renderEmptyList() {
