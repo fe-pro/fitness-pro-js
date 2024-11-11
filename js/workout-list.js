@@ -21,29 +21,40 @@ function getHTMLElements() {
   }
 }
 
-function updateDOM(HTMLElements) {
+async function updateDOM(HTMLElements) {
 
   const { workoutListContainer } = HTMLElements
 
-  const workoutList = {
-    workouts: [
-      {
-        id: "4aaf3510-412d-4f7c-b449-c65ac6bbfaab",
-        title: "Costas"
-      },
-      {
-        id: "d29fd499-6ab5-42cc-83c7-6150e6031e97",
-        title: "Peito"
-      }
-    ]
+  const url = 'http://127.0.0.1:3333/workout/list'
+  const accessToken = localStorage.getItem('token')
+  const requestData = {
+    method: 'GET',
+    headers: {
+      "Authorization": `Bearer ${accessToken}`,
+      "Cache-Control": "no-cache"
+    }
   }
 
-  const hasWorkoutsAvaliable = workoutList.workouts.length > 0
+  try {
 
-  workoutListContainer.innerHTML =
-    hasWorkoutsAvaliable
-      ? renderWorkoutList(workoutList.workouts)
-      : renderEmptyList()
+    const response = await fetch(url, requestData)
+
+    if (!response.ok) {
+      throw new Error('Erro ao buscar lista de treinos.')
+    }
+
+    const { workouts } = await response.json()
+
+    const hasWorkoutsAvaliable = workouts.length > 0
+
+    workoutListContainer.innerHTML =
+      hasWorkoutsAvaliable
+        ? renderWorkoutList(workouts)
+        : renderEmptyList()
+
+  } catch {
+    throw new Error('Falha interna, tente mais tarde.')
+  }
 }
 
 function renderWorkoutList(workoutList) {
