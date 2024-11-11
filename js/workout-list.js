@@ -1,5 +1,7 @@
 import { authService } from './services/auth.service.js'
+import { workoutService } from './services/workout.service.js'
 import './utils/header.js'
+import { toast } from './utils/toast.js'
 
 document.addEventListener('DOMContentLoaded', initPage)
 
@@ -25,35 +27,18 @@ async function updateDOM(HTMLElements) {
 
   const { workoutListContainer } = HTMLElements
 
-  const url = 'http://127.0.0.1:3333/workout/list'
-  const accessToken = localStorage.getItem('token')
-  const requestData = {
-    method: 'GET',
-    headers: {
-      "Authorization": `Bearer ${accessToken}`,
-      "Cache-Control": "no-cache"
-    }
-  }
-
   try {
-
-    const response = await fetch(url, requestData)
-
-    if (!response.ok) {
-      throw new Error('Erro ao buscar lista de treinos.')
-    }
-
-    const { workouts } = await response.json()
-
+    const workouts = await workoutService.fetchWorkouts()
+    
     const hasWorkoutsAvaliable = workouts.length > 0
-
+  
     workoutListContainer.innerHTML =
       hasWorkoutsAvaliable
         ? renderWorkoutList(workouts)
         : renderEmptyList()
 
-  } catch {
-    throw new Error('Falha interna, tente mais tarde.')
+  } catch(error) {
+    toast('error', error.message)
   }
 }
 
