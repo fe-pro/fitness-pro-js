@@ -1,9 +1,10 @@
+import { apiUrl } from '../utils/constants.js'
+
 const accessToken = localStorage.getItem('token')
 
 export const workoutService = {
 
   createWorkout: async (workoutTitle) => {
-    const url = 'http://127.0.0.1:3333/workout'
   
     const requestData = {
       method: 'POST',
@@ -15,7 +16,7 @@ export const workoutService = {
     }
   
     try {
-      const response = await fetch(url, requestData)
+      const response = await fetch(`${apiUrl}/workout`, requestData)
       
       if (!response.ok) {
         throw new Error('Erro ao criar treino.')
@@ -29,7 +30,6 @@ export const workoutService = {
 
   },
   fetchWorkouts: async () => {
-    const url = 'http://127.0.0.1:3333/workout/list'
 
     const requestData = {
       method: 'GET',
@@ -41,7 +41,7 @@ export const workoutService = {
   
     try {
   
-      const response = await fetch(url, requestData)
+      const response = await fetch(`${apiUrl}/workout/list`, requestData)
   
       if (!response.ok) {
         throw new Error('Erro ao buscar lista de treinos.')
@@ -50,6 +50,33 @@ export const workoutService = {
       const { workouts } = await response.json()
       return workouts
   
+    } catch {
+      throw new Error('Falha interna, tente mais tarde.')
+    }
+  },
+  getWorkoutById: async (workoutId) => {
+    const requestData = {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Cache-Control': 'no-cache'
+      }
+    }
+
+    try {
+      const response = await fetch(`${apiUrl}/exercise/${workoutId}/list`, requestData)
+
+      if(response.status === 404) {
+        throw new Error(404)
+      }
+
+      if(!response.ok) {
+        throw new Error('Erro ao buscar dados do treino.')
+      }
+
+      const workout = await response.json()
+      return workout
+      
     } catch {
       throw new Error('Falha interna, tente mais tarde.')
     }

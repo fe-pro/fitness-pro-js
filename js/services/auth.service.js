@@ -1,3 +1,5 @@
+import { apiUrl } from '../utils/constants.js'
+
 export const authService = {
   routeGuard: () => {
 
@@ -13,7 +15,6 @@ export const authService = {
     }
   },
   login: async (user) => {
-    const url = 'http://127.0.0.1:3333/sessions'
 
     const requestData = {
         method: 'POST',
@@ -23,7 +24,7 @@ export const authService = {
         body: JSON.stringify(user)
     }
 
-    const response = await fetch(url, requestData)
+    const response = await fetch(`${apiUrl}/sessions`, requestData)
 
     if (response.status === 400) {
       throw new Error('Usuário ou senha inválido.')
@@ -37,7 +38,6 @@ export const authService = {
     return token
   },
   createAccount: async (newUser) => {
-    const url = 'http://127.0.0.1:3333/users'
 
     const requestData ={
         method: 'POST',
@@ -47,7 +47,7 @@ export const authService = {
         body: JSON.stringify(newUser)
     }
 
-    const response = await fetch(url, requestData)
+    const response = await fetch(`${apiUrl}/users`, requestData)
 
     if (response.status === 409) {
       throw new Error('E-mail já cadastrado.')

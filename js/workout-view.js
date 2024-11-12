@@ -1,4 +1,5 @@
 import { authService } from './services/auth.service.js'
+import { workoutService } from './services/workout.service.js'
 import { getParamFromUrl } from './utils/utils.js'
 
 document.addEventListener('DOMContentLoaded', initPage)
@@ -22,10 +23,11 @@ function getHTMLElements() {
   }
 }
 
-function fetchData() {
+async function fetchData() {
 
   const workoutId = getParamFromUrl('workout-id')
-  console.log(workoutId)
+  const workout = await workoutService.getWorkoutById(workoutId)
+  console.log(workout)
 }
 
 function setupEventListeners(HTMLElements) {
