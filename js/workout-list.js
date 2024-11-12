@@ -43,7 +43,7 @@ function updateDOM(HTMLElements, data) {
 }
 
 function updateWorkoutList(workoutListContainer, workouts) {
-  
+
   const hasWorkoutsAvaliable = workouts.length > 0
 
   workoutListContainer.innerHTML =
@@ -55,24 +55,22 @@ function updateWorkoutList(workoutListContainer, workouts) {
 function renderWorkoutList(workoutList) {
 
   return `
-    <ul>${
-        workoutList.map(workout => {
+    <ul>
+      ${workoutList.map(renderWorkoutListItem).join('')}
+    </ul>
+  `
+}
 
+function renderWorkoutListItem(workout) {
 
-          const workoutSearchParams = new URLSearchParams({
-            'workout-id': workout.id
-          }).toString()
-          
-          return `
-            <li
-              class="workout-item"
-              onclick="location.href='/workout-view.html?${workoutSearchParams}'">
+  const workoutSearchParams = new URLSearchParams({
+    'workout-id': workout.id
+  }).toString()
 
-                ${sanitizeHTML(workout.title)}
-            </li>`
-        }
-        ).join('')
-    }</ul>
+  return `
+    <li class="workout-item" onclick="location.href='/workout-view.html?${workoutSearchParams}'">
+      ${sanitizeHTML(workout.title)}
+    </li>
   `
 }
 
