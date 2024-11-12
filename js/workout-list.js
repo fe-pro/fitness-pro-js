@@ -5,15 +5,20 @@ import { toast } from './utils/toast.js'
 
 document.addEventListener('DOMContentLoaded', initPage)
 
-function initPage() {
+async function initPage() {
 
   authService.routeGuard()
 
   const HTMLElements = getHTMLElements()
 
-  updateDOM(HTMLElements)
+  try {
+    const data = await fetchData()
+    updateDOM(HTMLElements, data)
+    setupEventListeners(HTMLElements)
 
-  setupEventListeners(HTMLElements)
+  } catch (error) {
+    toast('error', error.message)
+  }
 }
 
 function getHTMLElements() {
@@ -23,23 +28,23 @@ function getHTMLElements() {
   }
 }
 
-async function updateDOM(HTMLElements) {
+async function fetchData() {
+
+  const workouts = await workoutService.fetchWorkouts()
+  return { workouts }
+}
+
+function updateDOM(HTMLElements, data) {
 
   const { workoutListContainer } = HTMLElements
+  const { workouts } = data
 
-  try {
-    const workouts = await workoutService.fetchWorkouts()
-    
-    const hasWorkoutsAvaliable = workouts.length > 0
-  
-    workoutListContainer.innerHTML =
-      hasWorkoutsAvaliable
-        ? renderWorkoutList(workouts)
-        : renderEmptyList()
+  const hasWorkoutsAvaliable = workouts.length > 0
 
-  } catch(error) {
-    toast('error', error.message)
-  }
+  workoutListContainer.innerHTML =
+    hasWorkoutsAvaliable
+      ? renderWorkoutList(workouts)
+      : renderEmptyList()
 }
 
 function renderWorkoutList(workoutList) {
