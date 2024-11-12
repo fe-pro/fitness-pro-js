@@ -39,6 +39,11 @@ function updateDOM(HTMLElements, data) {
   const { workoutListContainer } = HTMLElements
   const { workouts } = data
 
+  updateWorkoutList(workoutListContainer, workouts)
+}
+
+function updateWorkoutList(workoutListContainer, workouts) {
+  
   const hasWorkoutsAvaliable = workouts.length > 0
 
   workoutListContainer.innerHTML =
