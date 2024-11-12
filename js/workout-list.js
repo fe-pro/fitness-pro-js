@@ -56,8 +56,22 @@ function renderWorkoutList(workoutList) {
 
   return `
     <ul>${
-        workoutList.map(workout =>
-        `<li class="workout-item">${sanitizeHTML(workout.title)}</li>`).join('')
+        workoutList.map(workout => {
+
+
+          const workoutSearchParams = new URLSearchParams({
+            'workout-id': workout.id
+          }).toString()
+          
+          return `
+            <li
+              class="workout-item"
+              onclick="location.href='/workout-view.html?${workoutSearchParams}'">
+
+                ${sanitizeHTML(workout.title)}
+            </li>`
+        }
+        ).join('')
     }</ul>
   `
 }
