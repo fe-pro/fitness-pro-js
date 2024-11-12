@@ -47,9 +47,16 @@ function renderWorkoutList(workoutList) {
   return `
     <ul>${
         workoutList.map(workout =>
-        `<li class="workout-item">${workout.title}</li>`).join('')
+        `<li class="workout-item">${sanitizeHTML(workout.title)}</li>`).join('')
     }</ul>
   `
+}
+
+function sanitizeHTML(input) {
+
+  const sanitizedInput = input.replace(/[&<>"'/]/g, '')
+
+  return sanitizedInput
 }
 
 function renderEmptyList() {
