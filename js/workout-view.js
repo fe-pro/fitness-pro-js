@@ -1,4 +1,5 @@
 import { authService } from './services/auth.service.js'
+import { getParamFromUrl } from './utils/utils.js'
 
 document.addEventListener('DOMContentLoaded', initPage)
 
@@ -7,6 +8,8 @@ function initPage() {
   authService.routeGuard()
 
   const HTMLElements = getHTMLElements()
+
+  fetchData()
 
   setupEventListeners(HTMLElements)
 }
@@ -17,6 +20,12 @@ function getHTMLElements() {
     exercisesTableContainer: document.querySelector('#exercisesTableContainer'),
     workoutEditButton: document.querySelector('#workoutEditButton')
   }
+}
+
+function fetchData() {
+
+  const workoutId = getParamFromUrl('workout-id')
+  console.log(workoutId)
 }
 
 function setupEventListeners(HTMLElements) {
