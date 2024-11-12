@@ -1,6 +1,7 @@
 import { authService } from './services/auth.service.js'
 import { workoutService } from './services/workout.service.js'
 import './utils/header.js'
+import { templates } from './utils/templates.js'
 import { toast } from './utils/toast.js'
 
 document.addEventListener('DOMContentLoaded', initPage)
@@ -48,54 +49,8 @@ function updateWorkoutList(workoutListContainer, workouts) {
 
   workoutListContainer.innerHTML =
     hasWorkoutsAvaliable
-      ? renderWorkoutList(workouts)
-      : renderEmptyList()
-}
-
-function renderWorkoutList(workoutList) {
-
-  return `
-    <ul>
-      ${workoutList.map(renderWorkoutListItem).join('')}
-    </ul>
-  `
-}
-
-function renderWorkoutListItem(workout) {
-
-  const workoutSearchParams = new URLSearchParams({
-    'workout-id': workout.id
-  }).toString()
-
-  return `
-    <li class="workout-item" onclick="location.href='/workout-view.html?${workoutSearchParams}'">
-      ${sanitizeHTML(workout.title)}
-    </li>
-  `
-}
-
-function sanitizeHTML(input) {
-
-  const htmlEscapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#39;',
-    '/': '&#x2F;',
-  }
-
-  const sanitizedInput = input.replace(/[&<>"'/]/g, match => htmlEscapeMap[match])
-  return sanitizedInput
-}
-
-function renderEmptyList() {
-  return `
-    <div class="fallback-render">
-      <img src="./assets/nothing-here-icon.svg">
-      <span>Nada por aqui!</span>
-    </div>
-  `
+      ? templates.renderWorkoutList(workouts)
+      : templates.renderEmptyList()
 }
 
 function setupEventListeners(HTMLElements) {
