@@ -1,6 +1,7 @@
 import { authService } from './services/auth.service.js'
 import { workoutService } from './services/workout.service.js'
 import './utils/header.js'
+import { templates } from './utils/templates.js'
 import { getParamFromUrl } from './utils/utils.js'
 
 document.addEventListener('DOMContentLoaded', initPage)
@@ -50,14 +51,27 @@ async function fetchData() {
 
 function updateDOM(HTMLElements, data) {
 
-  const { workoutTitleInput } = HTMLElements
-  const { workoutTitle } = data
+  const { workoutTitleInput, exercisesTableContainer } = HTMLElements
+  const { workoutTitle, exercises } = data
 
   updateWorkoutTitleInput(workoutTitleInput, workoutTitle)
+  updateExercisesTable(exercisesTableContainer, exercises)
 }
 
 function updateWorkoutTitleInput(workoutTitleInput, workoutTitle) {
   workoutTitleInput.value = workoutTitle
+}
+
+function updateExercisesTable(exercisesTableContainer, exercises) {
+
+  const hasExercisesAvaliable = exercises.length > 0
+
+  exercisesTableContainer.classList.toggle('fix-table-container-margin', hasExercisesAvaliable)
+
+  exercisesTableContainer.innerHTML = 
+    hasExercisesAvaliable
+      ? templates.renderExerciseTable(exercises)
+      : templates.renderEmptyList()
 }
 
 function setupEventListeners(HTMLElements) {
