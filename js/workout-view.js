@@ -2,6 +2,7 @@ import { authService } from './services/auth.service.js'
 import { workoutService } from './services/workout.service.js'
 import { getParamFromUrl } from './utils/utils.js'
 import { toast } from './utils/toast.js'
+import { templates } from './utils/templates.js'
 
 document.addEventListener('DOMContentLoaded', initPage)
 
@@ -50,10 +51,21 @@ function updateDOM(HTMLElements, data) {
   const { workoutTitle, exercises } = data
 
   updateWorkoutTitle(workoutTitleH1, workoutTitle)
+  updateWorkoutList(exercisesTableContainer, exercises)
 }
 
 function updateWorkoutTitle(workoutTitleH1, workoutTitle) {
   workoutTitleH1.textContent = workoutTitle
+}
+
+function updateWorkoutList(exercisesTableContainer, exercises) {
+  
+  const hasExercisesAvaliable = exercises.length > 0
+
+  exercisesTableContainer.innerHTML = 
+    hasExercisesAvaliable
+      ? templates.renderExerciseTable(exercises)
+      : templates.renderEmptyList()
 }
 
 function setupEventListeners(HTMLElements) {

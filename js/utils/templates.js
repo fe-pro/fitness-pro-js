@@ -9,6 +9,23 @@ export const templates = {
     </div>
   `,
 
+  renderExerciseTable: (exercises) => `
+      <table>
+        <thead>
+            <tr>
+              <th>Exercício</th>
+              <th>Séries</th>
+              <th>Rep.</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            ${exercises.map(renderExerciseRow).join('')}
+        </tbody>
+
+    </table>
+  `,
+
   renderToast: (type, message) => `
     <div class="toast-container">
       <div class="toast-border ${toastType[type]}"></div>
@@ -52,5 +69,15 @@ function renderWorkoutListItem(workout) {
     <li class="workout-item" onclick="location.href='/workout-view.html?${workoutSearchParams}'">
       ${sanitizeHTML(workout.title)}
     </li>
+  `
+}
+
+function renderExerciseRow(exercise) {
+  return `
+    <tr>
+      <td>${sanitizeHTML(exercise.title)}</td>
+      <td>${sanitizeHTML(exercise.sets.toString())}</td>
+      <td>${sanitizeHTML(exercise.reps.toString())}</td>
+    </tr>
   `
 }
