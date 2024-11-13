@@ -52,14 +52,14 @@ function updateDOM(HTMLElements, data) {
   const { workoutTitle, exercises } = data
 
   updateWorkoutTitle(workoutTitleH1, workoutTitle)
-  updateWorkoutList(exercisesTableContainer, exercises)
+  updateExercisesTable(exercisesTableContainer, exercises)
 }
 
 function updateWorkoutTitle(workoutTitleH1, workoutTitle) {
   workoutTitleH1.textContent = workoutTitle
 }
 
-function updateWorkoutList(exercisesTableContainer, exercises) {
+function updateExercisesTable(exercisesTableContainer, exercises) {
   
   const hasExercisesAvaliable = exercises.length > 0
 

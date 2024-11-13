@@ -21,13 +21,13 @@
 
         <header class="header">
 
-            <button class="menu-button" type="button">
+            <button class="menu-button" id="openMenuButton" type="button">
                 <img class="menu-button__icon" src="./assets/menu-icon.svg">
             </button>
 
             <h1 class="title">Editar treino</h1>
 
-            <button class="menu-button" type="button">
+            <button class="menu-button" id="backMenuButton" type="button">
                 <img class="menu-button__icon" src="./assets/back-button-icon.svg">
             </button>
 
@@ -35,20 +35,26 @@
 
         <main class="mt-3">
 
-            <form>
+            <form id="workoutEditForm">
                 <label class="label" for="workout-title">Título do treino</label>
 
                 <div class="input-group">
-                    <input name="workout-title" class="input" placeholder="Digite o título do treino" type="text">
+                    <input
+                        name="workout-title"
+                        class="input"
+                        id="workoutTitleInput"
+                        placeholder="Digite o título do treino"
+                        type="text">
+
                     <button type="submit">
                         <img src="./assets/check-icon.svg">
                     </button>
                 </div>
 
-                <span class="error-message">Título não pode ficar vazio</span>
+                <span class="error-message" id="workoutTitleErrorContainer">Título não pode ficar vazio</span>
             </form>
 
-            <div class="fix-table-container-margin">
+            <div class="fix-table-container-margin" id="exercisesTableContainer">
 
                 <table class="mt-2">
                     <thead>
@@ -84,13 +90,14 @@
 
             </div>
 
-            <a class="navigate-link">Adicionar exercício</a>
-            <a class="delete-link mt-3">Excluir treino</a>
+            <a class="navigate-link" id="addExerciseButton">Adicionar exercício</a>
+            <a class="delete-link mt-3" id="deleteWorkoutLink">Excluir treino</a>
 
         </main>
 
     </div>
 
+    <script type="module" src="./js/workout-edit.js"></script>
 </body>
 
 </html>
