@@ -14,20 +14,14 @@ export const workoutService = {
       },
       body: JSON.stringify({ title: workoutTitle })
     }
-  
-    try {
-      const response = await fetch(`${apiUrl}/workout`, requestData)
-      
-      if (!response.ok) {
-        throw new Error('Erro ao criar treino.')
-      }
-  
-      return response
 
-    } catch {
-      throw new Error('Falha interna, tente mais tarde.')
+    const response = await fetch(`${apiUrl}/workout`, requestData)
+    
+    if (!response.ok) {
+      throw new Error('Erro ao criar treino.')
     }
 
+    return response
   },
   fetchWorkouts: async () => {
 
@@ -39,20 +33,14 @@ export const workoutService = {
       }
     }
   
-    try {
-  
-      const response = await fetch(`${apiUrl}/workout/list`, requestData)
-  
-      if (!response.ok) {
-        throw new Error('Erro ao buscar lista de treinos.')
-      }
-  
-      const { workouts } = await response.json()
-      return workouts
-  
-    } catch {
-      throw new Error('Falha interna, tente mais tarde.')
+    const response = await fetch(`${apiUrl}/workout/list`, requestData)
+
+    if (!response.ok) {
+      throw new Error('Erro ao buscar lista de treinos.')
     }
+
+    const { workouts } = await response.json()
+    return workouts
   },
   getWorkoutById: async (workoutId) => {
     const requestData = {
@@ -63,22 +51,17 @@ export const workoutService = {
       }
     }
 
-    try {
-      const response = await fetch(`${apiUrl}/exercise/${workoutId}/list`, requestData)
+    const response = await fetch(`${apiUrl}/exercise/${workoutId}/list`, requestData)
 
-      if(response.status === 404) {
-        throw new Error(404)
-      }
-
-      if(!response.ok) {
-        throw new Error('Erro ao buscar dados do treino.')
-      }
-
-      const workout = await response.json()
-      return workout
-      
-    } catch {
-      throw new Error('Falha interna, tente mais tarde.')
+    if(response.status === 404) {
+      throw new Error(404)
     }
+
+    if(!response.ok) {
+      throw new Error('Erro ao buscar dados do treino.')
+    }
+
+    const workout = await response.json()
+    return workout
   }
 }

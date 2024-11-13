@@ -1,16 +1,25 @@
 import { authService } from './services/auth.service.js'
 import { workoutService } from './services/workout.service.js'
 import { getParamFromUrl } from './utils/utils.js'
+import { toast } from './utils/toast.js'
 
 document.addEventListener('DOMContentLoaded', initPage)
 
-function initPage() {
+async function initPage() {
 
   authService.routeGuard()
 
   const HTMLElements = getHTMLElements()
 
-  fetchData()
+  try {
+
+    const data = await fetchData()
+
+  } catch (error) {
+    error.message === '404'
+      ? location.href = '/workout-list.html'
+      : toast('error', error.message)
+  }
 
   setupEventListeners(HTMLElements)
 }
@@ -26,8 +35,13 @@ function getHTMLElements() {
 async function fetchData() {
 
   const workoutId = getParamFromUrl('workout-id')
-  const workout = await workoutService.getWorkoutById(workoutId)
-  console.log(workout)
+  const { workoutTitle, exercises } = await workoutService.getWorkoutById(workoutId)
+
+  return {
+    workoutId,
+    workoutTitle,
+    exercises
+  }
 }
 
 function setupEventListeners(HTMLElements) {
