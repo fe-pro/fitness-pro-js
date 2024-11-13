@@ -14,14 +14,14 @@ async function initPage() {
   try {
 
     const data = await fetchData()
+    updateDOM(HTMLElements, data)
+    setupEventListeners(HTMLElements)
 
   } catch (error) {
     error.message === '404'
       ? location.href = '/workout-list.html'
       : toast('error', error.message)
   }
-
-  setupEventListeners(HTMLElements)
 }
 
 function getHTMLElements() {
@@ -42,6 +42,18 @@ async function fetchData() {
     workoutTitle,
     exercises
   }
+}
+
+function updateDOM(HTMLElements, data) {
+
+  const { workoutTitleH1, exercisesTableContainer } = HTMLElements
+  const { workoutTitle, exercises } = data
+
+  updateWorkoutTitle(workoutTitleH1, workoutTitle)
+}
+
+function updateWorkoutTitle(workoutTitleH1, workoutTitle) {
+  workoutTitleH1.textContent = workoutTitle
 }
 
 function setupEventListeners(HTMLElements) {
