@@ -15,14 +15,13 @@ async function initPage() {
   try {
     const data = await fetchData()
     updateDOM(HTMLElements, data)
+    setupEventListeners(HTMLElements, data)
 
   } catch (error) {
     error.message === '404'
     ? location.href = '/workout-list.html'
     : toast('error', error.message)
   }
-
-  setupEventListeners(HTMLElements)
 }
 
 function getHTMLElements() {
@@ -74,13 +73,16 @@ function updateExercisesTable(exercisesTableContainer, exercises) {
       : templates.renderEmptyList()
 }
 
-function setupEventListeners(HTMLElements) {
+function setupEventListeners(HTMLElements, data) {
+
   const { workoutEditForm, addExerciseButton, deleteWorkoutLink } = HTMLElements
+  const { workoutId } = data
 
   workoutEditForm.addEventListener('submit',
     (event) => handleUpdateWorkoutTitle(event))
 
-  addExerciseButton.addEventListener('click', handleAddExercise)
+  addExerciseButton.addEventListener('click', 
+    () => handleNavigateToAddExercise(workoutId))
 
   deleteWorkoutLink.addEventListener('click', handleDeleteWorkout)
 }
@@ -92,8 +94,13 @@ function handleUpdateWorkoutTitle(event) {
   console.log('handleUpdateWorkoutTitle')
 }
 
-function handleAddExercise() {
-  console.log('handleAddExercise')
+function handleNavigateToAddExercise(workoutId) {
+  
+  const workoutSearchParams = new URLSearchParams({
+    'workout-id': workoutId
+  }).toString()
+
+  location.href = `/create-exercise.html?${workoutSearchParams}`
 }
 
 function handleDeleteWorkout() {
