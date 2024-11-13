@@ -13,7 +13,7 @@ async function initPage() {
 
   try {
     const data = await fetchData()
-
+    updateDOM(HTMLElements, data)
 
   } catch (error) {
     error.message === '404'
@@ -46,6 +46,18 @@ async function fetchData() {
     workoutTitle,
     exercises
   }
+}
+
+function updateDOM(HTMLElements, data) {
+
+  const { workoutTitleInput } = HTMLElements
+  const { workoutTitle } = data
+
+  updateWorkoutTitleInput(workoutTitleInput, workoutTitle)
+}
+
+function updateWorkoutTitleInput(workoutTitleInput, workoutTitle) {
+  workoutTitleInput.value = workoutTitle
 }
 
 function setupEventListeners(HTMLElements) {
