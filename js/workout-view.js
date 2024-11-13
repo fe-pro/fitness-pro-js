@@ -3,6 +3,7 @@ import { workoutService } from './services/workout.service.js'
 import { getParamFromUrl } from './utils/utils.js'
 import { toast } from './utils/toast.js'
 import { templates } from './utils/templates.js'
+import './utils/header.js'
 
 document.addEventListener('DOMContentLoaded', initPage)
 
@@ -16,7 +17,7 @@ async function initPage() {
 
     const data = await fetchData()
     updateDOM(HTMLElements, data)
-    setupEventListeners(HTMLElements)
+    setupEventListeners(HTMLElements, data)
 
   } catch (error) {
     error.message === '404'
@@ -62,20 +63,28 @@ function updateWorkoutList(exercisesTableContainer, exercises) {
   
   const hasExercisesAvaliable = exercises.length > 0
 
+  exercisesTableContainer.classList.toggle('fix-table-container-margin', hasExercisesAvaliable)
+
   exercisesTableContainer.innerHTML = 
     hasExercisesAvaliable
       ? templates.renderExerciseTable(exercises)
       : templates.renderEmptyList()
 }
 
-function setupEventListeners(HTMLElements) {
+function setupEventListeners(HTMLElements, data) {
 
   const { workoutEditButton } = HTMLElements
+  const { workoutId } = data
 
   workoutEditButton.addEventListener('click',
-      () => handleNavigateToWorkoutEdit())
+      () => handleNavigateToWorkoutEdit(workoutId))
 }
 
-function handleNavigateToWorkoutEdit() {
-  console.log('navigate')
+function handleNavigateToWorkoutEdit(workoutId) {
+
+  const workoutSearchParams = new URLSearchParams({
+    'workout-id': workoutId
+  }).toString()
+
+  location.href = `/workout-edit.html?${workoutSearchParams}`
 }
