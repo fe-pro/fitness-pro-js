@@ -1,6 +1,8 @@
+import { exerciseService } from './services/exercise.service.js'
 import './utils/header.js'
 import { getParamFromUrl } from './utils/utils.js'
 import { validate, validators } from './utils/validate.js'
+import { toast } from './utils/toast.js'
 
 document.addEventListener('DOMContentLoaded', initPage)
 
@@ -40,10 +42,10 @@ function setupEventListeners(HTMLElements, data) {
   const { workoutId } = data
 
   createExerciseForm.addEventListener('submit',
-    (event) => handleCreateExercise(event, HTMLElements, workoutId))
+    async (event) => await handleCreateExercise(event, HTMLElements, workoutId))
 }
 
-function handleCreateExercise(event, HTMLElements, workoutId) {
+async function handleCreateExercise(event, HTMLElements, workoutId) {
 
   event.preventDefault()
 
@@ -57,12 +59,18 @@ function handleCreateExercise(event, HTMLElements, workoutId) {
 
   const newExercise = {
     title: titleInput.value,
-    sets: setsInput.value,
-    reps: repsInput.value,
+    sets: Number(setsInput.value),
+    reps: Number(repsInput.value),
     workoutId
   }
 
-  console.log(newExercise)
+  try {
+    await exerciseService.createExercise(newExercise)
+    history.back()
+
+  } catch (error) {
+    toast('error', error.message)
+  }
 }
 
 function validateForm(titleInput, setsInput, repsInput) {
