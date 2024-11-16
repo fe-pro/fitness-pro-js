@@ -135,6 +135,12 @@ async function handleDeleteExercise(data) {
 
   const { exerciseId } = data
 
+  const deletionConfirmed = await showConfirmDialog()
+
+  if (!deletionConfirmed) {
+    return
+  }
+
   try {
     await exerciseService.deleteExercise(exerciseId)
     history.back()
@@ -142,4 +148,8 @@ async function handleDeleteExercise(data) {
   } catch (error) {
     toast('error', error.message)
   }
+}
+
+async function showConfirmDialog() {
+  
 }
