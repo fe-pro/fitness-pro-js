@@ -64,7 +64,8 @@ function setupEventListeners(HTMLElements, data) {
   exerciseEditForm.addEventListener('submit',
     async (event) => await handleEditExercise(event, HTMLElements, data))
 
-  deleteExerciseButton.addEventListener('click', handleDeleteExercise)
+  deleteExerciseButton.addEventListener('click',
+    () => handleDeleteExercise(data))
 }
 
 async function handleEditExercise(event, HTMLElements, data) {
@@ -130,6 +131,15 @@ function validateForm(titleInput, setsInput, repsInput) {
   return false
 }
 
-function handleDeleteExercise() {
-  console.log('handleDeleteExercise')
+async function handleDeleteExercise(data) {
+
+  const { exerciseId } = data
+
+  try {
+    await exerciseService.deleteExercise(exerciseId)
+    history.back()
+
+  } catch (error) {
+    toast('error', error.message)
+  }
 }
