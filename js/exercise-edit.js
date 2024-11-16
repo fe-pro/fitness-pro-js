@@ -1,11 +1,20 @@
 import './utils/header.js'
+import { getParamFromUrl } from './utils/utils.js'
 
 document.addEventListener('DOMContentLoaded', initPage)
 
 function initPage() {
 
   const HTMLElements = getHTMLElements()
-  setupEventListeners(HTMLElements)
+
+  try {
+    const data = fetchData()
+    setupEventListeners(HTMLElements)
+
+  } catch (error) {
+    error.message === '404' && location.replace('/workout-list.html')
+  }
+
 }
 
 function getHTMLElements() {
@@ -16,6 +25,16 @@ function getHTMLElements() {
     setsInput: document.querySelector('#setsInput'),
     repsInput: document.querySelector('#repsInput'),
     deleteExerciseButton: document.querySelector('#deleteExerciseButton'),
+  }
+}
+
+function fetchData() {
+
+  return {
+    exerciseId: getParamFromUrl('exercise-id'),
+    title: getParamFromUrl('title'),
+    sets: getParamFromUrl('sets'),
+    reps: getParamFromUrl('reps')
   }
 }
 
@@ -31,7 +50,7 @@ function setupEventListeners(HTMLElements) {
 function handleEditExercise(event) {
 
   event.preventDefault()
-  
+
   console.log('handleEditExercise')
 }
 
