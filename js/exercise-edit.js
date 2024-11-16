@@ -9,6 +9,7 @@ function initPage() {
 
   try {
     const data = fetchData()
+    updateDOM(HTMLElements, data)
     setupEventListeners(HTMLElements)
 
   } catch (error) {
@@ -36,6 +37,21 @@ function fetchData() {
     sets: getParamFromUrl('sets'),
     reps: getParamFromUrl('reps')
   }
+}
+
+function updateDOM(HTMLElements, data) {
+
+  populateFields(HTMLElements, data)
+}
+
+function populateFields(HTMLElements, data) {
+
+  const { titleInput, setsInput, repsInput } = HTMLElements
+  const { title, sets, reps } = data
+
+  titleInput.value = title
+  setsInput.value = sets
+  repsInput.value = reps
 }
 
 function setupEventListeners(HTMLElements) {
