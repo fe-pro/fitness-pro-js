@@ -9,18 +9,19 @@ export const templates = {
     </div>
   `,
 
-  renderExerciseTable: (exercises) => `
+  renderExerciseTable: ({ exercises, includeEditButton = false }) => `
       <table>
         <thead>
             <tr>
               <th>Exercício</th>
               <th>Séries</th>
               <th>Rep.</th>
+              ${includeEditButton ? '<th>Editar</th>' : ''}
             </tr>
         </thead>
 
         <tbody>
-            ${exercises.map(renderExerciseRow).join('')}
+            ${exercises.map(exercise => renderExerciseRow(exercise, includeEditButton)).join('')}
         </tbody>
 
     </table>
@@ -72,12 +73,29 @@ function renderWorkoutListItem(workout) {
   `
 }
 
-function renderExerciseRow(exercise) {
+function renderExerciseRow(exercise, includeEditButton) {
   return `
     <tr>
       <td>${sanitizeHTML(exercise.title)}</td>
       <td>${sanitizeHTML(exercise.sets.toString())}</td>
       <td>${sanitizeHTML(exercise.reps.toString())}</td>
+      ${includeEditButton ? `<td>${renderEditButton(exercise)}</td>` : ''}
     </tr>
+  `
+}
+
+function renderEditButton({ id, title, sets, reps }) {
+
+  const searchParams = new URLSearchParams({
+    'exercise-id': id,
+    'title': title,
+    'sets': sets,
+    'reps': reps
+  }).toString()
+
+  return `
+    <button class="edit-button" type="button" onclick="location.href='/exercise-edit.html?${searchParams}'">
+      <img src="./assets/edit-icon.svg">
+    </button>
   `
 }

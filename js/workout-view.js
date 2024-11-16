@@ -67,7 +67,7 @@ function updateExercisesTable(exercisesTableContainer, exercises) {
 
   exercisesTableContainer.innerHTML = 
     hasExercisesAvaliable
-      ? templates.renderExerciseTable(exercises)
+      ? templates.renderExerciseTable({ exercises })
       : templates.renderEmptyList()
 }
 
