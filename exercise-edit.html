@@ -21,40 +21,56 @@
 
         <header class="header">
 
-            <button class="menu-button" type="button">
+            <button class="menu-button" id="openMenuButton" type="button">
                 <img class="menu-button__icon" src="./assets/menu-icon.svg">
             </button>
 
             <h1 class="title">Editar exercício</h1>
 
-            <button class="menu-button" type="button">
+            <button class="menu-button" id="backMenuButton" type="button">
                 <img class="menu-button__icon" src="./assets/back-button-icon.svg">
             </button>
 
         </header>
 
         <main class="mt-3">
-            <form>
+
+            <form id="exerciseEditForm">
+
                 <label class="label" for="exercise-title">Nome do exercício</label>
-                <input class="input" type="text" name="exercise-title" placeholder="Nome do exercício">
+                <input
+                    class="input"
+                    id="titleInput"
+                    type="text"
+                    placeholder="Nome do exercício">
                 <span class="error-message">Título é obrigatório</span>
 
                 <label class="label mt-2" for="sets">Séries</label>
-                <input class="input" type="number" name="sets" placeholder="Quantidade de séries">
+                <input
+                    class="input"
+                    id="setsInput"
+                    type="number"
+                    placeholder="Quantidade de séries">
                 <span class="error-message">Número de série é obrigatório</span>
 
                 <label class="label mt-2" for="reps">Repetições</label>
-                <input class="input" type="number" name="reps" placeholder="Quantidade de repetições">
+                <input
+                    class="input"
+                    id="repsInput"
+                    type="number"
+                    placeholder="Quantidade de repetições">
                 <span class="error-message">Número de repetições é obrigatório</span>
 
                 <button class="button mt-3" type="submit">Salvar</button>
+
             </form>
 
-            <a class="delete-link mt-3">Excluir exercício</a>
+            <a class="delete-link mt-3" id="deleteExerciseButton">Excluir exercício</a>
         </main>
 
     </div>
 
+    <script type="module" src="./js/exercise-edit.js"></script>
 </body>
 
 </html>
