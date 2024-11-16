@@ -1,5 +1,8 @@
 import './utils/header.js'
+import { toast } from './utils/toast.js'
 import { getParamFromUrl } from './utils/utils.js'
+import { validate, validators } from './utils/validate.js'
+import { exerciseService } from './services/exercise.service.js'
 
 document.addEventListener('DOMContentLoaded', initPage)
 
@@ -10,7 +13,7 @@ function initPage() {
   try {
     const data = fetchData()
     updateDOM(HTMLElements, data)
-    setupEventListeners(HTMLElements)
+    setupEventListeners(HTMLElements, data)
 
   } catch (error) {
     error.message === '404' && location.replace('/workout-list.html')
@@ -54,20 +57,77 @@ function populateFields(HTMLElements, data) {
   repsInput.value = reps
 }
 
-function setupEventListeners(HTMLElements) {
+function setupEventListeners(HTMLElements, data) {
 
   const { exerciseEditForm, deleteExerciseButton } = HTMLElements
 
-  exerciseEditForm.addEventListener('submit', (event) => handleEditExercise(event))
+  exerciseEditForm.addEventListener('submit',
+    async (event) => await handleEditExercise(event, HTMLElements, data))
 
   deleteExerciseButton.addEventListener('click', handleDeleteExercise)
 }
 
-function handleEditExercise(event) {
+async function handleEditExercise(event, HTMLElements, data) {
 
   event.preventDefault()
 
-  console.log('handleEditExercise')
+  const { titleInput, setsInput, repsInput } = HTMLElements
+  const { exerciseId } = data
+
+  const isFormValid = validateForm(titleInput, setsInput, repsInput)
+
+  if (!isFormValid) {
+    return
+  }
+
+  const updatedExercise = {
+    id: exerciseId,
+    title: titleInput.value,
+    sets: Number(setsInput.value),
+    reps: Number(repsInput.value)
+  }
+
+  try {
+    await exerciseService.updateExercise(updatedExercise)
+    toast('success', 'Exercício atualizado!')
+    
+  } catch (error) {
+    toast('error', error.message)
+  }
+}
+
+function validateForm(titleInput, setsInput, repsInput) {
+
+  const isTitleValid = validate.validateInput(titleInput, validators.required)
+  const isSetsValid = validate.validateInput(setsInput, validators.required)
+  const isRepsValid = validate.validateInput(repsInput, validators.required)
+
+  validate.displayErrorMessage({
+    inputElement: titleInput,
+    isValid: isTitleValid,
+    errorContainer: titleInput.nextElementSibling,
+    errorMessage: 'Título é obrigatório'
+  })
+
+  validate.displayErrorMessage({
+    inputElement: setsInput,
+    isValid: isSetsValid,
+    errorContainer: setsInput.nextElementSibling,
+    errorMessage: 'Número de séries é obrigatório'
+  })
+
+  validate.displayErrorMessage({
+    inputElement: repsInput,
+    isValid: isRepsValid,
+    errorContainer: repsInput.nextElementSibling,
+    errorMessage: 'Número de repetições é obrigatório'
+  })
+
+  if (isTitleValid && isSetsValid && isRepsValid) {
+    return true
+  }
+
+  return false
 }
 
 function handleDeleteExercise() {

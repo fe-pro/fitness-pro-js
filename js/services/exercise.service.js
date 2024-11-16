@@ -22,5 +22,30 @@ export const exerciseService = {
     }
 
     return response
+  },
+  updateExercise: async ({id, title, sets, reps}) => {
+
+    const requestBody = {
+      title,
+      sets,
+      reps
+    }
+
+    const requestData = {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(requestBody)
+    }
+
+    const response = await fetch(`${apiUrl}/exercise/${id}`, requestData)
+
+    if (!response.ok) {
+      throw new Error('Erro ao atualizar o exercício.')
+    }
+
+    return response
   }
 }
