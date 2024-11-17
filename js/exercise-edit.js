@@ -172,4 +172,11 @@ async function showConfirmDialog(headerMessage, titleItemToBeRemove) {
   `
 
   document.body.insertAdjacentHTML('beforeend', dialogTemplate)
+
+  const dialogElement = document.body.lastElementChild
+
+  dialogElement.addEventListener('click', (event) => {
+
+    console.log(event.target.classList)
+  })
 }
