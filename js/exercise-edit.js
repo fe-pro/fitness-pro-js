@@ -133,9 +133,9 @@ function validateForm(titleInput, setsInput, repsInput) {
 
 async function handleDeleteExercise(data) {
 
-  const { exerciseId } = data
+  const { exerciseId, title } = data
 
-  const deletionConfirmed = await showConfirmDialog()
+  const deletionConfirmed = await showConfirmDialog('Deletar exercício?', title)
 
   if (!deletionConfirmed) {
     return
@@ -150,6 +150,26 @@ async function handleDeleteExercise(data) {
   }
 }
 
-async function showConfirmDialog() {
-  
+async function showConfirmDialog(headerMessage, titleItemToBeRemove) {
+
+  const dialogTemplate = `
+    <div class="outside-dialog">
+      <div class="dialog-content">
+        <header>
+          <span>${headerMessage}</span>
+        </header>
+
+        <section>
+          <span>Isso irá remover <span class="title-item">${titleItemToBeRemove}</span></span>
+        </section>
+
+        <footer>
+          <button class="cancel-button">Cancelar</button>
+          <button class="delete-button">Deletar</button>
+        </footer>
+      </div>
+    </div>
+  `
+
+  document.body.insertAdjacentHTML('beforeend', dialogTemplate)
 }
