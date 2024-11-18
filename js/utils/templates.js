@@ -52,6 +52,25 @@ export const templates = {
     <ul>
       ${workouts.map(renderWorkoutListItem).join('')}
     </ul>
+  `,
+
+  renderConfirmDialog: (headerMessage, titleItemToBeRemove) => `
+    <div class="outside-dialog">
+      <div class="dialog-content">
+        <header>
+          <span>${headerMessage}</span>
+        </header>
+
+        <section>
+          <span>Isso irá remover <span class="title-item">${titleItemToBeRemove}</span></span>
+        </section>
+
+        <footer>
+          <button class="cancel-button">Cancelar</button>
+          <button class="delete-button">Deletar</button>
+        </footer>
+      </div>
+    </div>
   `
 }
 

@@ -3,6 +3,7 @@ import { toast } from './utils/toast.js'
 import { getParamFromUrl } from './utils/utils.js'
 import { validate, validators } from './utils/validate.js'
 import { exerciseService } from './services/exercise.service.js'
+import { showConfirmDialog } from './utils/dialog.js'
 
 document.addEventListener('DOMContentLoaded', initPage)
 
@@ -148,50 +149,4 @@ async function handleDeleteExercise(data) {
   } catch (error) {
     toast('error', error.message)
   }
-}
-
-async function showConfirmDialog(headerMessage, titleItemToBeRemove) {
-
-  const dialogTemplate = `
-    <div class="outside-dialog">
-      <div class="dialog-content">
-        <header>
-          <span>${headerMessage}</span>
-        </header>
-
-        <section>
-          <span>Isso irá remover <span class="title-item">${titleItemToBeRemove}</span></span>
-        </section>
-
-        <footer>
-          <button class="cancel-button">Cancelar</button>
-          <button class="delete-button">Deletar</button>
-        </footer>
-      </div>
-    </div>
-  `
-
-  document.body.insertAdjacentHTML('beforeend', dialogTemplate)
-
-  return new Promise((resolve) => {
-
-    const dialogElement = document.body.lastElementChild
-    dialogElement.addEventListener('click', (event) => {
-
-      const cancelClasses = ['cancel-button', 'outside-dialog']
-      const isCanceled = cancelClasses
-        .some((cls) => event.target.classList.contains(cls))
-
-      const isConfirmed = event.target.classList.contains('delete-button')
-
-      if (isCanceled) {
-        dialogElement.remove()
-        resolve(false)
-
-      } else if (isConfirmed) {
-        dialogElement.remove()
-        resolve(true)
-      }
-  })
-  })  
 }
