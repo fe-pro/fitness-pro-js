@@ -179,7 +179,10 @@ async function showConfirmDialog(headerMessage, titleItemToBeRemove) {
 
     console.log(event.target.classList)
 
+    const cancelClasses = ['cancel-button', 'outside-dialog']
+
+    const isCanceled = cancelClasses.some((cls) => event.target.classList.contains(cls))
+
     const isConfirmed = event.target.classList.contains('delete-button')
-    console.log(isConfirmed)
   })
 }
