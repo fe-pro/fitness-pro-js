@@ -178,5 +178,8 @@ async function showConfirmDialog(headerMessage, titleItemToBeRemove) {
   dialogElement.addEventListener('click', (event) => {
 
     console.log(event.target.classList)
+
+    const isConfirmed = event.target.classList.contains('delete-button')
+    console.log(isConfirmed)
   })
 }
