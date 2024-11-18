@@ -136,6 +136,7 @@ async function handleDeleteExercise(data) {
   const { exerciseId, title } = data
 
   const deletionConfirmed = await showConfirmDialog('Deletar exercício?', title)
+  console.log('handleDeleteExercise =>', deletionConfirmed)
 
   if (!deletionConfirmed) {
     return
@@ -171,18 +172,28 @@ async function showConfirmDialog(headerMessage, titleItemToBeRemove) {
     </div>
   `
 
+  let dialogConfirm = false
+
   document.body.insertAdjacentHTML('beforeend', dialogTemplate)
 
   const dialogElement = document.body.lastElementChild
-
   dialogElement.addEventListener('click', (event) => {
 
     console.log(event.target.classList)
 
     const cancelClasses = ['cancel-button', 'outside-dialog']
-
-    const isCanceled = cancelClasses.some((cls) => event.target.classList.contains(cls))
+    const isCanceled = cancelClasses
+      .some((cls) => event.target.classList.contains(cls))
 
     const isConfirmed = event.target.classList.contains('delete-button')
+
+    if (isCanceled) {
+      dialogConfirm = false
+
+    } else if (isConfirmed) {
+      dialogConfirm = true
+    }
   })
+
+  return dialogConfirm
 }
