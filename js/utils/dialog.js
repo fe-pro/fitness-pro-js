@@ -1,5 +1,11 @@
 import { templates } from './templates.js'
 
+/**
+ * Cria e exibe um diálogo de confirmação para remover um item.
+ * @param {string} headerMessage - A mensagem do cabeçalho a ser exibida.
+ * @param {string} titleItemToBeRemove - O título do item a ser removido.
+ * @returns {Promise<boolean>} Resolve com `true` se confirmado, `false` se cancelado.
+ */
 export async function showConfirmDialog(headerMessage, titleItemToBeRemove) {
 
   document.body.insertAdjacentHTML('beforeend', templates.renderConfirmDialog(headerMessage, titleItemToBeRemove))
