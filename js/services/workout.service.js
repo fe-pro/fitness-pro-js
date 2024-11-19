@@ -63,5 +63,23 @@ export const workoutService = {
 
     const workout = await response.json()
     return workout
+  },
+  updateWorkoutTitle: async (workoutId, workoutTitleUpdated) => {
+    const requestData = {
+      method: 'PATCH',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ title: workoutTitleUpdated })
+    }
+
+    const response = await fetch(`${apiUrl}/workout/${workoutId}`, requestData)
+
+    if (!response.ok) {
+      throw new Error('Erro ao atualizar o título.')
+    }
+
+    return response
   }
 }

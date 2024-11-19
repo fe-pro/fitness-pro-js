@@ -3,6 +3,8 @@ import { workoutService } from './services/workout.service.js'
 import './utils/header.js'
 import { templates } from './utils/templates.js'
 import { getParamFromUrl } from './utils/utils.js'
+import { validate, validators } from './utils/validate.js'
+import { toast } from './utils/toast.js'
 
 document.addEventListener('DOMContentLoaded', initPage)
 
@@ -79,7 +81,7 @@ function setupEventListeners(HTMLElements, data) {
   const { workoutId } = data
 
   workoutEditForm.addEventListener('submit',
-    (event) => handleUpdateWorkoutTitle(event))
+    (event) => handleUpdateWorkoutTitle(event, HTMLElements, workoutId))
 
   addExerciseButton.addEventListener('click', 
     () => handleNavigateToAddExercise(workoutId))
@@ -87,11 +89,45 @@ function setupEventListeners(HTMLElements, data) {
   deleteWorkoutLink.addEventListener('click', handleDeleteWorkout)
 }
 
-function handleUpdateWorkoutTitle(event) {
+async function handleUpdateWorkoutTitle(event, HTMLElements, workoutId) {
 
   event.preventDefault()
 
-  console.log('handleUpdateWorkoutTitle')
+  const { workoutTitleInput, workoutTitleErrorContainer } = HTMLElements
+
+  const isFormValid = validateForm(workoutTitleInput, workoutTitleErrorContainer)
+
+  if (!isFormValid) {
+    return
+  }
+
+  const workoutTitleUpdated = workoutTitleInput.value
+
+  try {
+    await workoutService.updateWorkoutTitle(workoutId, workoutTitleUpdated)
+    toast('success', 'Título atualizado!')
+
+  } catch (error) {
+    toast('error', error.message)
+  }
+}
+
+function validateForm(workoutTitleInput, workoutTitleErrorContainer) {
+
+  const isWorkoutTitleValid = validate.validateInput(workoutTitleInput, validators.required)
+
+  validate.displayErrorMessage({
+    inputElement: workoutTitleInput,
+    isValid: isWorkoutTitleValid,
+    errorContainer: workoutTitleErrorContainer,
+    errorMessage: 'Título não pode ficar vazio'
+  })
+
+  if (isWorkoutTitleValid) {
+    return true
+  }
+
+  return false
 }
 
 function handleNavigateToAddExercise(workoutId) {
