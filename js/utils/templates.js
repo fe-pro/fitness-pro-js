@@ -10,7 +10,7 @@ export const templates = {
   `,
 
   renderExerciseTable: ({ exercises, includeEditButton = false }) => `
-      <table>
+      <table class="mt-2">
         <thead>
             <tr>
               <th>Exercício</th>
@@ -62,7 +62,7 @@ export const templates = {
         </header>
 
         <section>
-          <span>Isso irá remover <span class="title-item">${titleItemToBeRemove}</span></span>
+          <span>Isso irá remover <span class="title-item">${sanitizeHTML(titleItemToBeRemove)}</span></span>
         </section>
 
         <footer>

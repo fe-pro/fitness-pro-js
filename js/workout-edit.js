@@ -5,6 +5,7 @@ import { templates } from './utils/templates.js'
 import { getParamFromUrl } from './utils/utils.js'
 import { validate, validators } from './utils/validate.js'
 import { toast } from './utils/toast.js'
+import { showConfirmDialog } from './utils/dialog.js'
 
 document.addEventListener('DOMContentLoaded', initPage)
 
@@ -81,12 +82,13 @@ function setupEventListeners(HTMLElements, data) {
   const { workoutId } = data
 
   workoutEditForm.addEventListener('submit',
-    (event) => handleUpdateWorkoutTitle(event, HTMLElements, workoutId))
+    async (event) => await handleUpdateWorkoutTitle(event, HTMLElements, workoutId))
 
   addExerciseButton.addEventListener('click', 
     () => handleNavigateToAddExercise(workoutId))
 
-  deleteWorkoutLink.addEventListener('click', handleDeleteWorkout)
+  deleteWorkoutLink.addEventListener('click',
+    async () => await handleDeleteWorkout(data))
 }
 
 async function handleUpdateWorkoutTitle(event, HTMLElements, workoutId) {
@@ -139,6 +141,21 @@ function handleNavigateToAddExercise(workoutId) {
   location.href = `/create-exercise.html?${workoutSearchParams}`
 }
 
-function handleDeleteWorkout() {
-  console.log('handleDeleteWorkout')
+async function handleDeleteWorkout(data) {
+
+  const { workoutId, workoutTitle } = data
+
+  const deletionConfirmed = await showConfirmDialog('Deletar treino?', workoutTitle)
+
+  if (!deletionConfirmed) {
+    return
+  }
+
+  try {
+    await workoutService.deleteWorkout(workoutId)
+    location.replace('/workout-list.html')
+
+  } catch (error) {
+    toast('error', error.message)
+  }
 }
