@@ -40,5 +40,45 @@ export const http = {
   
     const response = await fetch(`${apiUrl}${endpoint}`, requestData)
     return response
+  },
+
+  put: async (endpoint, payload, { useAuthorization = true } = { }) => {
+
+    const headers = {
+      'Content-Type': 'application/json'
+    }
+
+    if (useAuthorization) {
+      headers['Authorization'] = `Bearer ${accessToken}`
+    }
+
+    const requestData = {
+      method: 'PUT',
+      headers,
+      body: JSON.stringify(payload)
+    }
+
+    const response = await fetch(`${apiUrl}${endpoint}`, requestData)
+    return response
+  },
+
+  patch: async (endpoint, payload, { useAuthorization = true } = { }) => {
+
+    const headers = {
+      'Content-Type': 'application/json'
+    }
+
+    if (useAuthorization) {
+      headers['Authorization'] = `Bearer ${accessToken}`
+    }
+
+    const requestData = {
+      method: 'PATCH',
+      headers,
+      body: JSON.stringify(payload)
+    }
+
+    const response = await fetch(`${apiUrl}${endpoint}`, requestData)
+    return response
   }
 }
