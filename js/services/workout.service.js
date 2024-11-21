@@ -67,14 +67,7 @@ export const workoutService = {
 
   deleteWorkout: async (workoutId) => {
 
-    const requestData = {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${accessToken}`
-      }
-    }
-
-    const response = await fetch(`${apiUrl}/workout/${workoutId}`, requestData)
+    const response = await http.delete(`/workout/${workoutId}`)
 
     if (!response.ok) {
       throw new Error('Erro ao excluir o treino.')

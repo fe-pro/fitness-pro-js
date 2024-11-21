@@ -35,12 +35,7 @@ export const exerciseService = {
   
   deleteExercise: async (exerciseId) => {
 
-    const requestData = {
-      method: 'DELETE',
-      headers: { 'Authorization': `Bearer ${accessToken}` }
-    }
-
-    const response = await fetch(`${apiUrl}/exercise/${exerciseId}`, requestData)
+    const response = await http.delete(`/exercise/${exerciseId}`)
 
     if (!response.ok) {
       throw new Error('Erro ao deletar exercício.')

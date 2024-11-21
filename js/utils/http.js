@@ -80,5 +80,22 @@ export const http = {
 
     const response = await fetch(`${apiUrl}${endpoint}`, requestData)
     return response
+  },
+
+  delete: async (endpoint, { useAuthorization = true } = { }) => {
+
+    const headers = { }
+
+    if (useAuthorization) {
+      headers['Authorization'] = `Bearer ${accessToken}`
+    }
+
+    const requestData = {
+      method: 'DELETE',
+      headers
+    }
+
+    const response = await fetch(`${apiUrl}${endpoint}`, requestData)
+    return response
   }
 }
