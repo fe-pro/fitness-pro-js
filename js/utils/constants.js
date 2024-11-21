@@ -1,1 +1,1 @@
-export const apiUrl = 'http://127.0.0.1:3333'
+export const base_url = 'http://127.0.0.1:3333'

@@ -1,4 +1,4 @@
-import { apiUrl } from '../utils/constants.js'
+import { base_url } from '../utils/constants.js'
 const accessToken = localStorage.getItem('token')
 
 export const http = {
@@ -19,7 +19,7 @@ export const http = {
         body: JSON.stringify(payload)
     }
 
-    const response = await fetch(`${apiUrl}${endpoint}`, requestData)
+    const response = await makeFetch(endpoint, requestData)
     return response
   },
 
@@ -38,7 +38,7 @@ export const http = {
       headers,
     }
   
-    const response = await fetch(`${apiUrl}${endpoint}`, requestData)
+    const response = await makeFetch(endpoint, requestData)
     return response
   },
 
@@ -58,7 +58,7 @@ export const http = {
       body: JSON.stringify(payload)
     }
 
-    const response = await fetch(`${apiUrl}${endpoint}`, requestData)
+    const response = await makeFetch(endpoint, requestData)
     return response
   },
 
@@ -78,7 +78,7 @@ export const http = {
       body: JSON.stringify(payload)
     }
 
-    const response = await fetch(`${apiUrl}${endpoint}`, requestData)
+    const response = await makeFetch(endpoint, requestData)
     return response
   },
 
@@ -95,7 +95,18 @@ export const http = {
       headers
     }
 
-    const response = await fetch(`${apiUrl}${endpoint}`, requestData)
+    const response = await makeFetch(endpoint, requestData)
     return response
+  }
+}
+
+async function makeFetch(endpoint, requestData) {
+
+  try {
+    const response = await fetch(`${base_url}${endpoint}`, requestData)
+    return response
+
+  } catch {
+    throw new Error('Falha interna, tente mais tarde.')
   }
 }

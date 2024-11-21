@@ -1,4 +1,3 @@
-import { apiUrl } from '../utils/constants.js'
 import { http } from '../utils/http.js'
 
 export const authService = {

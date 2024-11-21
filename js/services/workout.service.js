@@ -1,7 +1,4 @@
-import { apiUrl } from '../utils/constants.js'
 import { http } from '../utils/http.js'
-
-const accessToken = localStorage.getItem('token')
 
 export const workoutService = {
 
@@ -55,8 +52,6 @@ export const workoutService = {
     }
 
     const response = await http.patch(`/workout/${workoutId}`, payload)
-
-    console.log(response)
 
     if (!response.ok) {
       throw new Error('Erro ao atualizar o título.')

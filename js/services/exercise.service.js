@@ -1,7 +1,4 @@
-import { apiUrl } from '../utils/constants.js'
 import { http } from '../utils/http.js'
-
-const accessToken = localStorage.getItem('token')
 
 export const exerciseService = {
 
