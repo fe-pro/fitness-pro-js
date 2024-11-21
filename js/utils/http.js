@@ -3,7 +3,6 @@ const accessToken = localStorage.getItem('token')
 
 export const http = {
 
-  //Cannot read properties of undefined (reading 'useAuthorization')
   post: async (endpoint, payload, { useAuthorization = true } = { }) => {
 
     const headers = {

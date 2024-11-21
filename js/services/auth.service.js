@@ -19,15 +19,7 @@ export const authService = {
 
   login: async (user) => {
 
-    const requestData = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(user)
-    }
-
-    const response = await fetch(`${apiUrl}/sessions`, requestData)
+    const response = await http.post('/sessions', user, { useAuthorization: false })
 
     if (response.status === 400) {
       throw new Error('Usuário ou senha inválido.')

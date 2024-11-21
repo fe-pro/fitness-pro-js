@@ -1,4 +1,5 @@
 import { apiUrl } from '../utils/constants.js'
+import { http } from '../utils/http.js'
 
 const accessToken = localStorage.getItem('token')
 
@@ -6,16 +7,7 @@ export const exerciseService = {
 
   createExercise: async (newExercise) => {
 
-    const requestData = {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${accessToken}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(newExercise)
-    }
-
-    const response = await fetch(`${apiUrl}/exercise`, requestData)
+    const response = await http.post('/exercise', newExercise)
 
     if (!response.ok) {
       throw new Error('Erro ao adicionar exercício.')
