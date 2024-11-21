@@ -22,15 +22,7 @@ export const workoutService = {
 
   fetchWorkouts: async () => {
 
-    const requestData = {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${accessToken}`,
-        'Cache-Control': 'no-cache'
-      }
-    }
-  
-    const response = await fetch(`${apiUrl}/workout/list`, requestData)
+    const response = await http.get('/workout/list')
 
     if (!response.ok) {
       throw new Error('Erro ao buscar lista de treinos.')

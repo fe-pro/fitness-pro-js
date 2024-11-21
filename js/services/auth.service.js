@@ -35,7 +35,7 @@ export const authService = {
 
   createAccount: async (newUser) => {
 
-    const response = await http.post('/users', newUser)
+    const response = await http.post('/users', newUser, { useAuthorization: false })
 
     if (response.status === 409) {
       throw new Error('E-mail já cadastrado.')

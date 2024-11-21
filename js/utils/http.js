@@ -21,5 +21,24 @@ export const http = {
 
     const response = await fetch(`${apiUrl}${endpoint}`, requestData)
     return response
+  },
+
+  get: async (endpoint, { useAuthorization = true } = { }) => {
+
+    const headers = {
+      'Cache-Control': 'no-cache'
+    }
+
+    if (useAuthorization) {
+      headers['Authorization'] = `Bearer ${accessToken}`
+    }
+
+    const requestData = {
+      method: 'GET',
+      headers,
+    }
+  
+    const response = await fetch(`${apiUrl}${endpoint}`, requestData)
+    return response
   }
 }
