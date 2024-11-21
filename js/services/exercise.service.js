@@ -23,6 +23,7 @@ export const exerciseService = {
 
     return response
   },
+
   updateExercise: async ({id, title, sets, reps}) => {
 
     const requestBody = {
@@ -48,6 +49,7 @@ export const exerciseService = {
 
     return response
   },
+  
   deleteExercise: async (exerciseId) => {
 
     const requestData = {

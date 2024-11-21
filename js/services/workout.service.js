@@ -23,6 +23,7 @@ export const workoutService = {
 
     return response
   },
+
   fetchWorkouts: async () => {
 
     const requestData = {
@@ -42,6 +43,7 @@ export const workoutService = {
     const { workouts } = await response.json()
     return workouts
   },
+
   getWorkoutById: async (workoutId) => {
     const requestData = {
       method: 'GET',
@@ -64,6 +66,7 @@ export const workoutService = {
     const workout = await response.json()
     return workout
   },
+
   updateWorkoutTitle: async (workoutId, workoutTitleUpdated) => {
     const requestData = {
       method: 'PATCH',
@@ -82,6 +85,7 @@ export const workoutService = {
 
     return response
   },
+  
   deleteWorkout: async (workoutId) => {
 
     const requestData = {

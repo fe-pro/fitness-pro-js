@@ -1,6 +1,8 @@
 import { apiUrl } from '../utils/constants.js'
+import { http } from '../utils/http.js'
 
 export const authService = {
+
   routeGuard: () => {
 
     const hasAccessToken = localStorage.getItem('token')
@@ -14,6 +16,7 @@ export const authService = {
       location.replace('/')
     }
   },
+
   login: async (user) => {
 
     const requestData = {
@@ -37,17 +40,10 @@ export const authService = {
     const { token } = await response.json()
     return token
   },
+
   createAccount: async (newUser) => {
 
-    const requestData ={
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newUser)
-    }
-
-    const response = await fetch(`${apiUrl}/users`, requestData)
+    const response = await http.post('/users', newUser)
 
     if (response.status === 409) {
       throw new Error('E-mail já cadastrado.')
@@ -59,6 +55,7 @@ export const authService = {
 
     return response
   },
+
   logout: () => {
     localStorage.removeItem('token')
   }
