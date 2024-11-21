@@ -1,21 +1,17 @@
 import { apiUrl } from '../utils/constants.js'
+import { http } from '../utils/http.js'
 
 const accessToken = localStorage.getItem('token')
 
 export const workoutService = {
 
   createWorkout: async (workoutTitle) => {
-  
-    const requestData = {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${accessToken}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ title: workoutTitle })
+
+    const payload = {
+       title: workoutTitle
     }
 
-    const response = await fetch(`${apiUrl}/workout`, requestData)
+    const response = await http.post('/workout', payload)
     
     if (!response.ok) {
       throw new Error('Erro ao criar treino.')
@@ -85,7 +81,7 @@ export const workoutService = {
 
     return response
   },
-  
+
   deleteWorkout: async (workoutId) => {
 
     const requestData = {

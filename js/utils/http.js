@@ -1,14 +1,22 @@
 import { apiUrl } from '../utils/constants.js'
+const accessToken = localStorage.getItem('token')
 
 export const http = {
 
-  post: async (endpoint, payload) => {
+  //Cannot read properties of undefined (reading 'useAuthorization')
+  post: async (endpoint, payload, { useAuthorization = true } = { }) => {
 
-    const requestData ={
+    const headers = {
+      'Content-Type': 'application/json'
+    }
+
+    if (useAuthorization) {
+      headers['Authorization'] = `Bearer ${accessToken}`
+    }
+
+    const requestData = {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
+        headers,
         body: JSON.stringify(payload)
     }
 
