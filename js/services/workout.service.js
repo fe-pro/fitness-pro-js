@@ -33,15 +33,8 @@ export const workoutService = {
   },
 
   getWorkoutById: async (workoutId) => {
-    const requestData = {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${accessToken}`,
-        'Cache-Control': 'no-cache'
-      }
-    }
 
-    const response = await fetch(`${apiUrl}/exercise/${workoutId}/list`, requestData)
+    const response = await http.get(`/exercise/${workoutId}/list`)
 
     if(response.status === 404) {
       throw new Error(404)
