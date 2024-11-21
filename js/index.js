@@ -26,10 +26,10 @@ function setupEventListeners(HTMLElements) {
     const { loginForm } = HTMLElements
 
     loginForm.addEventListener('submit',
-        async (event) => await handleLoginFormSubmit(event, HTMLElements))
+        async (event) => await handleLogin(event, HTMLElements))
 }
 
-async function handleLoginFormSubmit(event, HTMLElements) {
+async function handleLogin(event, HTMLElements) {
 
     event.preventDefault()
 

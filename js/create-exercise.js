@@ -51,9 +51,9 @@ async function handleCreateExercise(event, HTMLElements, workoutId) {
 
   const { titleInput, setsInput, repsInput } = HTMLElements
 
-  const isValid = validateForm(titleInput, setsInput, repsInput)
+  const isFormValid = validateForm(titleInput, setsInput, repsInput)
 
-  if (!isValid) {
+  if (!isFormValid) {
     return
   }
 

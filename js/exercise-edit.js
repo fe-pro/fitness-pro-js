@@ -4,10 +4,13 @@ import { getParamFromUrl } from './utils/utils.js'
 import { validate, validators } from './utils/validate.js'
 import { exerciseService } from './services/exercise.service.js'
 import { showConfirmDialog } from './utils/dialog.js'
+import { authService } from './services/auth.service.js'
 
 document.addEventListener('DOMContentLoaded', initPage)
 
 function initPage() {
+
+  authService.routeGuard()
 
   const HTMLElements = getHTMLElements()
 
@@ -19,7 +22,6 @@ function initPage() {
   } catch (error) {
     error.message === '404' && location.replace('/workout-list.html')
   }
-
 }
 
 function getHTMLElements() {
@@ -66,7 +68,7 @@ function setupEventListeners(HTMLElements, data) {
     async (event) => await handleEditExercise(event, HTMLElements, data))
 
   deleteExerciseButton.addEventListener('click',
-    () => handleDeleteExercise(data))
+    async () => await handleDeleteExercise(data))
 }
 
 async function handleEditExercise(event, HTMLElements, data) {

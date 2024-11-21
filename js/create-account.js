@@ -43,9 +43,9 @@ async function handleCreateAccount(event, HTMLElements) {
         confirmPasswordInput
     } = HTMLElements
 
-    const isValid = validateForm(nameInput, emailInput, passwordInput, confirmPasswordInput)
+    const isFormValid = validateForm(nameInput, emailInput, passwordInput, confirmPasswordInput)
 
-    if(!isValid) {
+    if(!isFormValid) {
         return
     }
 
